@@ -1,21 +1,28 @@
 import React, { useContext, useState, useEffect } from 'react'
 import AuthContext from '../context/AuthContext'
-import useFetch from '../utils/useFetch'
 import Header from '../components/Header'
 import ListItem from '../components/ListItem'
 
 const Homepage = () => {
-  const {user, logoutUser, setMessage} = useContext(AuthContext)
+  const {user, logoutUser, setMessage, authTokens} = useContext(AuthContext)
   const [notes, setNotes] = useState([])
 
-  const api = useFetch()
+  const api = process.env.REACT_APP_API_LINK
+
 
   useEffect(() => {
     getNotes()
   }, [])
 
   const getNotes = async () => {
-    let {response, data} = await api('/api/notes/')
+    let response = await fetch(`${api}/notes/`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Access-Key ${authTokens?.access}`
+      }
+    })
+    let data = await response.json()
     if(response.status === 200){
       setNotes(data)
     }else if(response.statusText === "Unauthorized"){

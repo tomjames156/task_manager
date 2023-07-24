@@ -9,6 +9,7 @@ const AuthContext = createContext()
 export default AuthContext
 
 export const AuthProvider = ({children}) => {
+    const api = process.env.REACT_APP_API_LINK
     const navigator = useNavigate()
     const [isLoading, setIsLoading] = useState(true)
     const [message, setMessage] = useState('')
@@ -21,7 +22,7 @@ export const AuthProvider = ({children}) => {
     const loginUser = async(e) => {
         e.preventDefault()
         setMessage(null)
-        let response = await fetch('http://127.0.0.1:8000/api/token/', {
+        let response = await fetch(`${api}/token/`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
@@ -54,7 +55,7 @@ export const AuthProvider = ({children}) => {
     }
 
     const refreshToken = async () => {
-        let response = await fetch('http://127.0.0.1:8000/api/token/refresh/', {
+        let response = await fetch(`${api}/token/refresh/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -74,7 +75,6 @@ export const AuthProvider = ({children}) => {
         }else{
             logoutUser() // logout user if anything doesn't work or in case of funny business like user made use of an old token🙄
         }
-
         setIsLoading(false)
     }
 
@@ -84,11 +84,13 @@ export const AuthProvider = ({children}) => {
         }
 
         let refresh_time = 1000 * 30
+
         let interval = setInterval(() => {
             if(authTokens){
                 refreshToken()
             }
         }, refresh_time)
+
         return () => clearInterval(interval)
     }, [authTokens, isLoading])
 
