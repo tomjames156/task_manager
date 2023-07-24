@@ -20,6 +20,7 @@ export const AuthProvider = ({children}) => {
 
     const loginUser = async(e) => {
         e.preventDefault()
+        setMessage(null)
         let response = await fetch('http://127.0.0.1:8000/api/token/', {
             method: "POST",
             headers: {
@@ -82,7 +83,7 @@ export const AuthProvider = ({children}) => {
             refreshToken()
         }
 
-        let refresh_time = 1000 * 4
+        let refresh_time = 1000 * 30
         let interval = setInterval(() => {
             if(authTokens){
                 refreshToken()

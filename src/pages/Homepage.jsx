@@ -18,7 +18,6 @@ const Homepage = () => {
     let {response, data} = await api('/api/notes/')
     if(response.status === 200){
       setNotes(data)
-      console.log(data)
     }else if(response.statusText === "Unauthorized"){
       setMessage('Your login session expired')
       logoutUser()
