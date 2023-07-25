@@ -127,7 +127,7 @@ main{
   main{
     margin: 5rem auto 0 auto;
     width: 100%;
-    padding: 0 1rem;
+    padding: 0 1rem 2rem 1rem;
   }
 
   .options{
@@ -161,12 +161,12 @@ main{
 
 .login-form main{
   border: solid 1px navy;
-  padding: 6rem 3rem;
+  padding: 8rem 1.5rem;
   border-radius: 1rem;
   font-weight: bold;
   text-align: center;
-  max-width: 24rem;
-  width: 24rem;
+  max-width: 20rem;
+  width: 20rem;
 }
 
 .login-form .pass-container{
@@ -175,7 +175,7 @@ main{
 
 .login-form h1{
   font-size: 2.2rem;
-  margin-bottom: 0;
+  margin-bottom: 1rem;
 }
 
 .login-form .icon{
@@ -192,7 +192,7 @@ form{
 }
 
 form input{
-  padding: 0.5rem 0.75rem;
+  padding: 0.5rem 0.5rem 0.5rem 1rem;
   border-radius: 1.2rem;
   outline: none;
   border: solid 1px navy;
