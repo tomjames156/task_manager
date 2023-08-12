@@ -1,22 +1,19 @@
 import React, { useContext, useState, useEffect } from 'react'
 import AuthContext from '../context/AuthContext'
-import TasksContext from '../context/TasksContext'
 import TemplatePage from './TemplatePage'
 
-const Homepage = () => {
+const CompletedTaskPage = () => {
   const {user, logoutUser, setMessage, authTokens} = useContext(AuthContext)
-  const {newTasks, getNewTasks} = useContext(TasksContext)
   const [tasks, setTasks] = useState([])
 
   const api = process.env.REACT_APP_API_LINK
 
   useEffect(() => {
     getTasks()
-    getNewTasks()
   }, [])
 
   const getTasks = async () => {
-    let response = await fetch(`${api}/tasks/`, {
+    let response = await fetch(`${api}/tasks/completed/`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -32,18 +29,17 @@ const Homepage = () => {
     }else{
       logoutUser()
     }
-    // setIsLoading(false)
   }
 
-  return(
+
+  return (
     <TemplatePage 
       user={user} 
       tasks={tasks} 
-      page_title='Taskify'
-      hasFooter={true}
-      new_tasks={newTasks}
+      page_title='Completed Tasks'
+      hasFooter={false}
     />
   )
 }
 
-export default Homepage
+export default CompletedTaskPage

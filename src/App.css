@@ -25,6 +25,7 @@ nav{
   border-right: solid 1px #d3d3d3;
   padding: 1rem 1rem 0 1rem;
   align-items: center;
+  margin: 0 auto;
 }
 
 .tasks-header{
@@ -45,12 +46,22 @@ nav{
   display: flex;
   flex-direction: column;
   margin-top: 1.5rem;
-  row-gap: 0.5rem;
+  row-gap: 1rem;
+}
+
+.options i{
+  color: black;
 }
 
 main{
   padding: 2rem 0;
   margin-left: 7rem;
+  width: 100%;
+  display: grid;
+}
+
+main img{
+  align-self: center;
 }
 
 .welcome-text{
@@ -264,6 +275,7 @@ button{
   display: flex;
   flex-direction: column;
   row-gap: 0.25rem;
+  justify-self: left;
 }
 
 .key div{

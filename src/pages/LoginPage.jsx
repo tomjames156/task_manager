@@ -33,7 +33,7 @@ const Login = () => {
     e.preventDefault()
     if(username === ''){
       setValidateMsg("Please enter your username")
-    }else if(password == ''){
+    }else if(password === ''){
       setValidateMsg("Please enter your password")
     }else if(password && username){
       loginUser(e)

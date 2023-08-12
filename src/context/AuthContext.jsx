@@ -100,7 +100,9 @@ export const AuthProvider = ({children}) => {
         logoutUser,
         authTokens,
         message, 
-        setMessage
+        setMessage,
+        isLoading,
+        setIsLoading
     }
 
     return(
