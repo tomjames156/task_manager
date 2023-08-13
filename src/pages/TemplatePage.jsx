@@ -1,19 +1,22 @@
 import {useContext} from 'react'
 import Header from '../components/Header'
 import TaskItem from '../components/TaskItem'
-import AuthContext from '../context/AuthContext'
 import Footer from '../components/Footer'
 import Loader from '../components/Loader'
+import TasksContext from '../context/TasksContext'
+import useFetchTasks from '../hooks/useFetchTasks'
 
-function TemplatePage({page_title, tasks, user, hasFooter, new_tasks}) {
-    const {isLoading} = useContext(AuthContext)
+function TemplatePage({page_title, tasks_type, user, hasFooter, section_text}) {
+    const {isLoading} = useContext(TasksContext)
+    const {tasks} = useFetchTasks(tasks_type)
+
     return (
         <div className='container'>
           <Header></Header>
           <main>
             {isLoading ? <Loader/>: <>
                 <h1 className='tasks-header'>{page_title}</h1>
-                {user && <p className='welcome-text'>Hi there 👋🏾, <strong>{user.username}</strong>. {new_tasks.length > 0 ? `You have ${new_tasks.length} new task(s) for the day Goodluck👍🏾` : `You've successfully completed all of your assigned tasks. Have a great day👍🏾`}</p>}.
+                {user && <p className='welcome-text'>Hi there 👋🏾, <strong>{user.username}</strong>. {section_text}</p>}.
                 {tasks && 
                 <div className='tasks'>
                 {tasks.map((task) => {
@@ -28,8 +31,7 @@ function TemplatePage({page_title, tasks, user, hasFooter, new_tasks}) {
 }
 
 TemplatePage.defaultProps = {
-    hasFooter: true,
-    new_tasks: []
+    hasFooter: false
 }
 
 export default TemplatePage

@@ -6,7 +6,8 @@ export default TasksContext
 
 export const TasksProvider = ({children}) => {
     const api = process.env.REACT_APP_API_LINK
-    const {isLoading, authTokens, setMessage, logoutUser} = useContext(AuthContext)
+    const {authTokens, setMessage, logoutUser} = useContext(AuthContext)
+    const [isLoading, setIsLoading] = useState(true)
     const [newTasks, setNewTasks] = useState([])
 
     const getNewTasks = async () => {
@@ -28,14 +29,20 @@ export const TasksProvider = ({children}) => {
         }
     }
 
+
+    useEffect(() => {
+        getNewTasks()
+    }, [])
+
     const contextData = {
         newTasks,
-        getNewTasks,
+        isLoading,
+        setIsLoading
     }
 
   return (
         <TasksContext.Provider value={contextData}>
-            {isLoading ? null : children}
+            {children}
         </TasksContext.Provider>
   )
 }

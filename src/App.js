@@ -6,6 +6,8 @@ import { AuthProvider } from './context/AuthContext';
 import { TasksProvider } from './context/TasksContext';
 import Login from './pages/LoginPage';
 import CompletedTaskPage from './pages/CompletedTasksPage';
+import IncompleteTasksPage from './pages/IncompleteTasksPage';
+import NewTasksPage from './pages/NewTasksPage';
 
 function App() {
   return (
@@ -16,7 +18,9 @@ function App() {
             <Route path='/'>
               <Route element={<PrivateWrapper/>}>
                 <Route index path='' element={<Homepage/>} />
-                <Route index path='/completed' element={<CompletedTaskPage/>} />
+                <Route path='/completed' element={<CompletedTaskPage/>} />
+                <Route path='/new' element={<NewTasksPage/>} />
+                <Route  path='/incomplete' element={<IncompleteTasksPage/>} />
               </Route>
               <Route path="login" element={<Login/>} />
             </Route>

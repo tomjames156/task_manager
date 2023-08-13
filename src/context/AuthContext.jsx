@@ -11,7 +11,7 @@ export default AuthContext
 export const AuthProvider = ({children}) => {
     const api = process.env.REACT_APP_API_LINK
     const navigator = useNavigate()
-    const [isLoading, setIsLoading] = useState(true)
+    const [isLoadingToken, setIsLoadingToken] = useState(true)
     const [message, setMessage] = useState('')
 
     const [authTokens, setAuthTokens] = useState(() => localStorage.getItem('authTokens') ? JSON.parse(localStorage.getItem('authTokens')) : null)
@@ -75,11 +75,11 @@ export const AuthProvider = ({children}) => {
         }else{
             logoutUser() // logout user if anything doesn't work or in case of funny business like user made use of an old token🙄
         }
-        setIsLoading(false)
+        setIsLoadingToken(false)
     }
 
     useEffect(() => {
-        if(isLoading){
+        if(isLoadingToken){
             refreshToken()
         }
 
@@ -92,7 +92,7 @@ export const AuthProvider = ({children}) => {
         }, refresh_time)
 
         return () => clearInterval(interval)
-    }, [authTokens, isLoading])
+    }, [authTokens, isLoadingToken])
 
     const contextData = {
         loginUser, 
@@ -100,14 +100,12 @@ export const AuthProvider = ({children}) => {
         logoutUser,
         authTokens,
         message, 
-        setMessage,
-        isLoading,
-        setIsLoading
+        setMessage
     }
 
     return(
         <AuthContext.Provider value={contextData}>
-            {isLoading ? null : children}
+            {isLoadingToken ? null : children}
         </AuthContext.Provider>
     )
 }

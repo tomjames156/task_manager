@@ -2,17 +2,17 @@ import {useContext} from 'react'
 import AuthContext from '../context/AuthContext'
 import TemplatePage from './TemplatePage'
 
-function IncompleteTasksPage() {
+function NewTasksPage() {
     const {user} = useContext(AuthContext)
   
     return (
       <TemplatePage 
         user={user} 
-        tasks_type='incomplete'
-        page_title='Incomplete Tasks'
-        section_text='These are tasks you have not completed'
+        tasks_type='new'
+        page_title='New Tasks'
+        section_text='These tasks were assigned to you recently'
       />
     )
 }
 
-export default IncompleteTasksPage
+export default NewTasksPage

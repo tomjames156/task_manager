@@ -40,17 +40,26 @@ nav{
 
 .logout{
   cursor: pointer;
+  transition: ease 100ms;
 }
 
 .options{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+  padding-bottom: 2rem;
+}
+
+.options div{
   display: flex;
   flex-direction: column;
   margin-top: 1.5rem;
   row-gap: 1rem;
 }
 
-.options i{
-  color: black;
+.logout  i{
+  color: red;
 }
 
 main{
@@ -61,7 +70,7 @@ main{
 }
 
 main img{
-  align-self: center;
+  place-self: center;
 }
 
 .welcome-text{
