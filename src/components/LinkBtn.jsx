@@ -13,7 +13,7 @@ function LinkBtn({path, btn_name, icon_name, size}) {
     }
 
   return (
-    <Link to={path} title={btn_name}><i style={{color: pathMatch(path) ? 'black' : '#d3d3d3'}} className={`fa-solid ${icon_name} fa-${size}`}></i></Link>
+    <Link className='link_btn' to={path} title={btn_name}><i style={{color: pathMatch(path) ? 'black' : '#d3d3d3'}} className={`fa-solid ${icon_name} fa-${size}`}></i></Link>
   )
 }
 

@@ -8,6 +8,7 @@ import Login from './pages/LoginPage';
 import CompletedTaskPage from './pages/CompletedTasksPage';
 import IncompleteTasksPage from './pages/IncompleteTasksPage';
 import NewTasksPage from './pages/NewTasksPage';
+import UrgencyViewPage from './pages/UrgencyViewPage';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
                 <Route index path='' element={<Homepage/>} />
                 <Route path='/completed' element={<CompletedTaskPage/>} />
                 <Route path='/new' element={<NewTasksPage/>} />
+                <Route path='/urgency' element={<UrgencyViewPage/>} />
                 <Route  path='/incomplete' element={<IncompleteTasksPage/>} />
               </Route>
               <Route path="login" element={<Login/>} />

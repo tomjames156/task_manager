@@ -1,5 +1,3 @@
-import React from 'react'
-
 function TaskItem({task_obj}) {
     const date = new Date(task_obj.due_date)
   return (

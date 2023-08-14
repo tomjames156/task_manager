@@ -13,13 +13,13 @@ const Header = () => {
           <div>
             <LinkBtn path='/' btn_name='All Tasks' icon_name='fa-house' />
 
-            <LinkBtn path="/incomplete" btn_name='Incomplete Tasks' icon_name='fa-circle-xmark' />
+            <LinkBtn path='/completed' btn_name='Completed Tasks' icon_name='fa-circle-check' />
 
             <LinkBtn path='/new' btn_name='New Tasks' icon_name='fa-circle-plus' />
 
-            <LinkBtn path="/urgent" btn_name='Urgency View' icon_name="fa-circle-exclamation" />
+            <LinkBtn path="/urgency" btn_name='Urgency View' icon_name="fa-triangle-exclamation" />
 
-            <LinkBtn path='/completed' btn_name='Completed Tasks' icon_name='fa-circle-check' />
+            <LinkBtn path="/incomplete" btn_name='Incomplete Tasks' icon_name='fa-circle-xmark' />
           </div>
 
           <div>

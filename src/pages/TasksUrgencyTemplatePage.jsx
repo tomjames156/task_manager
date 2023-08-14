@@ -1,13 +1,12 @@
 import {useContext} from 'react'
-import {useLocation} from 'react-router-dom'
 import Header from '../components/Header'
-import TaskItem from '../components/TaskItem'
-import HomepageKey from '../components/HomepageKey'
+import TaskUrgencyItem from '../components/TaskUrgencyItem'
+import UrgencyKey from '../components/UrgencyKey'
 import Loader from '../components/Loader'
 import TasksContext from '../context/TasksContext'
 import useFetchTasks from '../hooks/useFetchTasks'
 
-function TemplatePage({page_title, tasks_type, user, hasFooter, section_text}) {
+function TaskUrgencyTemplatePage({page_title, tasks_type, user, hasFooter, section_text}) {
     const {isLoading} = useContext(TasksContext)
     let {tasks} = useFetchTasks(tasks_type)
 
@@ -18,21 +17,21 @@ function TemplatePage({page_title, tasks_type, user, hasFooter, section_text}) {
             {isLoading ? <Loader/>: <>
                 <h1 className='tasks-header'>{page_title}</h1>
                 {user && <p className='welcome-text'>Hi there 👋🏾, <strong>{user.username}</strong>. {tasks.length > 0 && section_text}</p>}.
-                {tasks.length > 0 ? 
+                {tasks ? 
                 <div className='tasks'>
                 {tasks.map((task) => {
-                    return <TaskItem key={task.id} task_obj={task}></TaskItem>
+                    return <TaskUrgencyItem key={task.id} task_obj={task}></TaskUrgencyItem>
                     })}
-                </div> : <h3 style={{color: 'red'}}>You have no {tasks_type} tasks</h3>}
+                </div> : <h2>You have no {tasks_type} tasks</h2>}
             </>}
-            {hasFooter && <HomepageKey/>}
+            {hasFooter && <UrgencyKey/>}
           </main>
         </div>
       )
 }
 
-TemplatePage.defaultProps = {
+TaskUrgencyTemplatePage.defaultProps = {
     hasFooter: false
 }
 
-export default TemplatePage
+export default TaskUrgencyTemplatePage

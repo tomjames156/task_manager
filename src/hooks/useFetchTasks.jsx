@@ -6,7 +6,7 @@ function useFetchTasks (endpoint) {
     const api = process.env.REACT_APP_API_LINK
     const {authTokens} = useContext(AuthContext)
     const {setIsLoading} = useContext(TasksContext)
-    const [tasks, setTasks] = useState(null)
+    const [tasks, setTasks] = useState([])
     const [error, setError] = useState(null)
 
     const fetchData = async () => {
