@@ -12,7 +12,7 @@ export const AuthProvider = ({children}) => {
     const api = process.env.REACT_APP_API_LINK
     const navigator = useNavigate()
     const [isLoadingToken, setIsLoadingToken] = useState(true)
-    const [message, setMessage] = useState('')
+    const [message, setMessage]= useState('')
 
     const [authTokens, setAuthTokens] = useState(() => localStorage.getItem('authTokens') ? JSON.parse(localStorage.getItem('authTokens')) : null)
     // using a calback instead of a the direct evaluation enhaces performance by making sure this function runs only once on the initial render
@@ -21,7 +21,6 @@ export const AuthProvider = ({children}) => {
 
     const loginUser = async(e) => {
         e.preventDefault()
-        setMessage(null)
         let response = await fetch(`${api}/token/`, {
             method: "POST",
             headers: {
@@ -43,7 +42,7 @@ export const AuthProvider = ({children}) => {
             localStorage.setItem('authTokens', JSON.stringify(data))
             navigator('/')
         }else{
-            setMessage(data)
+            setMessage('Incorrect details provided')
         }
     }
 
@@ -55,25 +54,24 @@ export const AuthProvider = ({children}) => {
     }
 
     const refreshToken = async () => {
-        let response = await fetch(`${api}/token/refresh/`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(
-                {
-                    'refresh': authTokens?.refresh
-                })
-        })
-        let data = await response.json()
-        if(response.status === 200){
+        try{
+            let response = await fetch(`${api}/token/refresh/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(
+                    {
+                        'refresh': authTokens?.refresh
+                    })
+            })
+            let data = await response.json()
             setAuthTokens(data)
             setUser(jwtDecode(data.access))
             localStorage.setItem('authTokens', JSON.stringify(data))
-        }else if(response.status === 401){
-            logoutUser()
-        }else{
-            logoutUser() // logout user if anything doesn't work or in case of funny business like user made use of an old token🙄
+        }catch(err){
+            logoutUser() // logout user if anything doesn't work or in case of funny business like user made use of an expired token🙄
+            setMessage('Login Expired')
         }
         setIsLoadingToken(false)
     }

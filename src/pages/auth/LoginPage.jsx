@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import AuthContext from '../context/AuthContext'
+import AuthContext from '../../context/AuthContext'
 import { FaEyeSlash, FaEye } from 'react-icons/fa'
 
 const Login = () => {
@@ -32,10 +32,13 @@ const Login = () => {
   const validateInputs = (e) => {
     e.preventDefault()
     if(username === ''){
+      setMessage('')
       setValidateMsg("Please enter your username")
     }else if(password === ''){
+      setMessage('')
       setValidateMsg("Please enter your password")
     }else if(password && username){
+      setValidateMsg('')
       loginUser(e)
     }
   }
@@ -44,7 +47,7 @@ const Login = () => {
     <div className='login-form'>
       <main>
         <h1>Sign In</h1>
-        {message && <div className='error'><span>{message.detail}</span><i className="fa-solid fa-circle-xmark" onClick={closeAlert}></i></div>}
+        {message && <div className='error'><span>{message}</span><i className="fa-solid fa-circle-xmark" onClick={closeAlert}></i></div>}
         {validateMsg && <div className='error'><span>{validateMsg}</span><i className="fa-solid fa-circle-xmark" onClick={closeAlert}></i></div>}
         <form onSubmit={validateInputs}>
             <div><input value={username || ''} onChange={(e) => {setUsername(e.target.value)}} type="text" name="username" id='username' placeholder='Enter Username' /></div>

@@ -1,6 +1,6 @@
 import {useContext} from 'react'
-import AuthContext from '../context/AuthContext'
-import TemplatePage from './TemplatePage'
+import AuthContext from '../../context/AuthContext'
+import TemplatePage from '../templates/TemplatePage'
 
 function IncompleteTasksPage() {
     const {user} = useContext(AuthContext)

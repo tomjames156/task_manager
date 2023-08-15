@@ -58,6 +58,10 @@ nav{
   row-gap: 1rem;
 }
 
+.options div#mobile_nav{
+  display: none;
+}
+
 .logout  i{
   color: red;
 }
@@ -129,6 +133,21 @@ main img{
   }
 }
 
+@media screen and (max-width: 750px){
+  nav{
+    padding: 1rem 0.5rem;
+  }
+
+  main{
+    margin-left: 6rem;
+  }
+
+  .task-item{
+    flex: 30%;
+  }
+}
+
+
 @media screen and (max-width: 650px) {
   .container{
     flex-direction: column;
@@ -145,6 +164,7 @@ main img{
     padding: 1rem;
     justify-content: space-between;
     background: white;
+    align-items: center;
     z-index: 2;
   }
 
@@ -155,8 +175,16 @@ main img{
   }
 
   .options{
-    flex-direction: row;
+    padding-bottom: 0;
+  }
+
+  .options div#mobile_nav{
     margin-top: 0;
+    display: unset;
+  }
+
+  .options div:not(#mobile_nav){
+    display: none;
   }
 
   .tasks{

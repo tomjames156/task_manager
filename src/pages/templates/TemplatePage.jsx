@@ -1,14 +1,13 @@
-import {useContext} from 'react'
-import {useLocation} from 'react-router-dom'
-import Header from '../components/Header'
-import TaskItem from '../components/TaskItem'
-import HomepageKey from '../components/HomepageKey'
-import Loader from '../components/Loader'
-import TasksContext from '../context/TasksContext'
-import useFetchTasks from '../hooks/useFetchTasks'
+import React, {useContext} from 'react'
+import Header from '../../components/sectioning/Header'
+import TaskItem from '../../components/items/TaskItem'
+import HomepageKey from '../../components/sectioning/HomepageKey'
+import Loader from '../../components/items/Loader'
+import TasksContext from '../../context/TasksContext'
+import useFetchTasks from '../../hooks/useFetchTasks'
 
 function TemplatePage({page_title, tasks_type, user, hasFooter, section_text}) {
-    const {isLoading} = useContext(TasksContext)
+    const {isLoading, pathMatch} = useContext(TasksContext)
     let {tasks} = useFetchTasks(tasks_type)
 
     return (
@@ -17,7 +16,7 @@ function TemplatePage({page_title, tasks_type, user, hasFooter, section_text}) {
           <main>
             {isLoading ? <Loader/>: <>
                 <h1 className='tasks-header'>{page_title}</h1>
-                {user && <p className='welcome-text'>Hi there 👋🏾, <strong>{user.username}</strong>. {tasks.length > 0 && section_text}</p>}.
+                {user && <p className='welcome-text'>{pathMatch('/') && <>Hi there 👋🏾, <strong>{user.username}</strong>.</>} {tasks.length > 0 && section_text}</p>}.
                 {tasks.length > 0 ? 
                 <div className='tasks'>
                 {tasks.map((task) => {

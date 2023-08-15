@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect } from "react";
+import { useLocation } from 'react-router-dom'
 import AuthContext from "./AuthContext";
 
 const TasksContext = createContext()
@@ -9,6 +10,16 @@ export const TasksProvider = ({children}) => {
     const {authTokens, setMessage, logoutUser} = useContext(AuthContext)
     const [isLoading, setIsLoading] = useState(true)
     const [newTasks, setNewTasks] = useState([])
+
+    const location = useLocation()
+
+    const pathMatch = (route) => {
+        if(route === location.pathname){
+            return true
+        }else{
+            return false
+        }
+    }
 
     const getNewTasks = async () => {
         const response = await fetch(`${api}/tasks/new/`, {
@@ -22,7 +33,7 @@ export const TasksProvider = ({children}) => {
         if(response.status === 200){
             setNewTasks(data)
         }else if(response.statusText === "Unauthorized"){
-            setMessage('Your login session expired')
+            setMessage('Login session expired')
             logoutUser()
         }else{
             logoutUser()
@@ -37,7 +48,8 @@ export const TasksProvider = ({children}) => {
     const contextData = {
         newTasks,
         isLoading,
-        setIsLoading
+        setIsLoading,
+        pathMatch
     }
 
   return (
