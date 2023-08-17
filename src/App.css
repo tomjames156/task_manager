@@ -28,6 +28,13 @@ nav{
   margin: 0 auto;
 }
 
+.app-name{
+  color: black;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
 .tasks-header{
   font-size: 2.4rem;
 }
@@ -41,6 +48,17 @@ nav{
 .logout{
   cursor: pointer;
   transition: ease 100ms;
+}
+
+
+.logout_btn{
+  display: none;
+  cursor: pointer;
+}
+
+.logout_btn i{
+  color: red;
+  margin-right: 0.25rem;
 }
 
 .options{
@@ -59,6 +77,10 @@ nav{
 }
 
 .options div#mobile_nav{
+  display: none;
+}
+
+.mobile_options{
   display: none;
 }
 
@@ -114,6 +136,7 @@ main img{
   padding-bottom: 2.5rem;
   font-size: 1.1rem;
   font-weight: bold;
+  cursor: pointer;
 }
 
 .date{
@@ -145,6 +168,11 @@ main img{
   .task-item{
     flex: 30%;
   }
+
+  .logout_btn{
+    display: unset;
+  }
+
 }
 
 
@@ -181,10 +209,63 @@ main img{
   .options div#mobile_nav{
     margin-top: 0;
     display: unset;
+    cursor: pointer;
+  }
+
+  .options div#mobile_nav:hover{
+    color: gray;
   }
 
   .options div:not(#mobile_nav){
     display: none;
+  }
+
+  .mobile_options{
+    position: absolute;
+    top: 2.75rem;
+    right: 1.5rem;
+    width: fit-content;
+    background: white;
+    height: 0;
+    display: flex;
+    flex-direction: column;
+    border-radius: 0.5rem;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-25px);
+  }
+
+  .mobile_options a{
+    color: transparent;
+    height: 0;
+  }
+
+  .mobile_options.show{
+    opacity: 1;
+    height: fit-content;
+    pointer-events: auto;
+    transform: translateY(0);
+    border: solid 2px black;
+    transition: all 150ms ease;
+  }
+
+  .mobile_options.show a{
+    text-decoration: none;
+    height: fit-content;
+    display: flex;
+    align-items: center;
+    column-gap: 0.5rem;
+    padding: 0.5rem 1.5rem 0.5rem 1rem;
+    color: black;
+  }
+
+  .mobile_options a:hover{
+    color: grey;
+  }
+
+  .active{
+    color: black;
+    font-weight: bold;
   }
 
   .tasks{
@@ -361,4 +442,94 @@ button{
 
 .key > div:nth-of-type(6) > span:first-child{
   background: #d3d3d3;
+}
+
+.taskItem{
+  width: 90%;
+  height: fit-content;
+  padding: 1rem;
+  border-radius: 1rem;
+}
+
+.taskItem form{
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.5rem;
+}
+
+.taskItem input, .taskItem textarea{
+  padding: 0.5rem 0.5rem 0.5rem 1rem;
+  border-radius: 0.5rem;
+  border: 0;
+  outline: none;
+  text-align: left;
+  font-size: 1.1rem;
+  width: 100%;
+  background: whitesmoke;
+}
+
+input[name='header']::placeholder, input[name='header']{
+  font-weight: bold;
+}
+
+.taskItem input:focus, .taskItem textarea:focus{
+  outline: solid 2px black;
+}
+
+form input[type='password']{
+  position: relative;
+}
+
+.form-control::-webkit-credentials-auto-fill-button {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+textarea{
+  resize: none;
+}
+
+button{
+  background: #45b6fe;
+  border: 0;
+  color: white;
+  padding: 0.3rem 1.25rem;
+  border-radius: 1.25rem;
+  font-weight: bold;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.task-options-friends{
+  display: flex;
+  justify-content: space-between;
+  padding-top: 1rem;
+}
+
+.save-cancel-btns{
+  width: 100%;
+  display: flex;
+  justify-content: right;
+  column-gap: 1rem;
+}
+
+.task-options{
+  display: flex;
+  column-gap: 0.5rem;
+}
+
+.cancel{
+  width: fit-content;
+  background: white;
+  font-size: 1.1rem;
+  color: black;
+  border-radius: 0.75rem;
+}
+
+.save{
+  width: fit-content;
+  background: black;
+  font-size: 1.1rem;
+  color: white;
+  border-radius: 0.75rem;
 }

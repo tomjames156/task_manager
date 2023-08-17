@@ -1,7 +1,36 @@
+import {useState, useEffect} from 'react'
+
 function TaskItem({task_obj}) {
-    const date = new Date(task_obj.due_date)
+  const [header, setHeader] = useState('')
+  const [description, setDescription] = useState('')
+  const fileInput = document.querySelector('input[type="file"]')
+
+  useEffect(() => {
+    setHeader(task_obj.header)
+  }, [task_obj])
+
   return (
-    <div className='task-item' style={{background: task_obj.task_colour}}><p>{task_obj.body}</p><span className='date'>{date.toDateString().slice(3,)}</span>{task_obj?.is_new ? <i className="fa-solid fa-circle-plus"></i> : <i className="fa-solid fa-circle-check"></i>}</div>
+    <div className="taskItem" style={{background: task_obj.task_colour}} >
+      <form action="">
+        <input type="text" name="header" placeholder="Add a Header" onChange={(e) => setHeader(e.target.value)} value={header || ''} />
+        <textarea rows={10} name="description" placeholder="Add a Description" onChange={(e) => setDescription(e.target.value)} value={description || ''} />
+        <div className="task-options-friends">
+          <div className='task-options'>
+            <i className="fa-solid fa-image fa-lg" title='Add Image' onClick={() => {fileInput.click()}}></i>
+            <i className="fa-solid fa-users fa-lg" title='Assign to Friends'></i>
+          </div>
+          <div className='assigned_friends'>
+            <p>Assigned Friends</p>
+          </div>
+        </div>
+        <input style={{display: 'none'}} type="file" />
+        <div className='file_names'></div>
+        <div className='save-cancel-btns'>
+          <button className='cancel'type='submit'>Cancel</button>
+          <button className='save' type='submit'>Save</button>
+        </div>
+      </form>
+    </div>
   )
 }
 

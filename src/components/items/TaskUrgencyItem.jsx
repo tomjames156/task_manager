@@ -1,11 +1,34 @@
-import dayjs from "dayjs"
+import dayjs from 'dayjs'
 
-function TaskUrgencyItem({task_obj}) {
-    const date = new Date(task_obj.due_date)
-    var today = new Date()
-    var task_due = dayjs(date)
-    // let duration = today.diff(task_due)
-    console.log(task_due)
+function TaskUrgencyItem({task_obj}) {    
+
+    const calculateTimeLeft = (due_date) => {
+        const time_params = ['year', 'month', 'day', 'hour', 'minute', 'second']
+        const date = new Date(due_date)
+        let today = new Date()
+        let task_due = dayjs(date)
+        today = dayjs(today)
+
+        if (today > task_due){
+            return 'Past due date'
+        }else{
+            for(let i = 0; i < time_params.length; i++){
+                let duration = today.diff(task_due, time_params[i])
+                if (duration === 0){
+                    continue
+                }
+                
+                if(duration === -1){
+                    return `${duration.toString().substring(1)} ${time_params[i]} left`
+                }else{
+                    return `${duration.toString().substring(1)} ${time_params[i]}s left`
+                }
+                
+            }
+        }
+    }
+
+    const time_left = calculateTimeLeft(task_obj.due_date)
 
     let urgency_colours = {
         0 : '#d3d3d3',
@@ -15,16 +38,8 @@ function TaskUrgencyItem({task_obj}) {
         4 : '#b99aff',
     }
 
-    let urgency_text = {
-        0 : 'Past Due date',
-        1 : 'Due today',
-        2 : 'Due tomorrow',
-        3 : '2 days left',
-        4 : '3+ days left',
-    }
-
     return (
-        <div className='task-item' style={{background: urgency_colours[task_obj.urgency]}}><p>{task_obj.body}</p><span className='date'>{urgency_text[task_obj.urgency]}</span>{task_obj?.is_new ? <i className="fa-solid fa-circle-plus"></i> : <i className="fa-solid fa-circle-check"></i>}</div>
+        <div className='task-item' style={{background: urgency_colours[task_obj.urgency]}}><p>{task_obj.body}</p><span className='date'>{time_left}</span>{task_obj?.is_new ? <i className="fa-solid fa-circle-plus"></i> : <i className="fa-solid fa-circle-check"></i>}</div>
     )
 }
 
