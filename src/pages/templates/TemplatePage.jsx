@@ -6,7 +6,6 @@ import Loader from '../../components/items/Loader'
 import TasksContext from '../../context/TasksContext'
 import useFetchTasks from '../../hooks/useFetchTasks'
 import AuthContext from '../../context/AuthContext'
-import TaskContext from '../../context/TaskContext'
 
 function TemplatePage({page_title, tasks_type, user, hasFooter, section_text, logout}) {
     const {isLoading, pathMatch} = useContext(TasksContext)

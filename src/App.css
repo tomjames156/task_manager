@@ -445,10 +445,55 @@ button{
 }
 
 .taskItem{
+  position: relative;
   width: 90%;
   height: fit-content;
   padding: 1rem;
   border-radius: 1rem;
+}
+
+.delete-dialog{
+  position: absolute;
+  top: 50%;
+  left: 45%;
+  transform: translate(-50%, -50%);
+  display: none;
+  background: whitesmoke;
+  width: fit-content;
+  height: fit-content;
+  border-radius: 1rem;
+  padding: 2rem 1.5rem;
+  z-index: 10;
+}
+
+.delete-dialog.dialog-shown{
+  display: flex;
+  flex-direction: column;
+  row-gap: 2rem;
+}
+
+.delete-dialog p{
+  font-size: 1.2rem;
+}
+
+.delete-dialog div{
+  display: flex;
+  column-gap: 1rem;
+  justify-content: space-between;
+}
+
+.delete-dialog .cancel{
+  background: black;
+  color: white;
+}
+
+.delete-task{
+  background: white;
+  color: red;
+  border: solid 1px red;
+  width: fit-content;
+  font-size: 1.1rem;
+  border-radius: 0.75rem;
 }
 
 .taskItem form{
@@ -465,11 +510,23 @@ button{
   text-align: left;
   font-size: 1.1rem;
   width: 100%;
-  background: whitesmoke;
+  background: white;
 }
 
 input[name='header']::placeholder, input[name='header']{
   font-weight: bold;
+}
+
+label[for='due_date']{
+  font-weight: bold;
+}
+
+input[type='date']{
+  width: fit-content;
+}
+
+input[type='datetime-local']{
+  width: fit-content;
 }
 
 .taskItem input:focus, .taskItem textarea:focus{
@@ -506,6 +563,10 @@ button{
   padding-top: 1rem;
 }
 
+.task-options-friends i{
+  cursor: pointer;
+}
+
 .save-cancel-btns{
   width: 100%;
   display: flex;
@@ -516,6 +577,16 @@ button{
 .task-options{
   display: flex;
   column-gap: 0.5rem;
+}
+
+.crud-btns{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.save-cancel-btns{
+  width: fit-content;
 }
 
 .cancel{
@@ -532,4 +603,41 @@ button{
   font-size: 1.1rem;
   color: white;
   border-radius: 0.75rem;
+}
+
+div.due-completed{
+  display: flex;
+  justify-content: space-between;
+}
+
+div.due-completed span{
+  display: flex;
+  flex-direction: column;
+}
+
+input[name='completed']{
+  width: fit-content;
+  color: hotpink;
+}
+
+input[name='completed']:focus{
+  outline: none;
+}
+
+.delete-btn button{
+  background: white;
+  color: red;
+  width: fit-content;
+  font-size: 1.1rem;
+  border-radius: 0.75rem;
+}
+
+.color-btns{
+  width: fit-content;
+  display: flex;
+  column-gap: 0.5rem;
+}
+
+.color-btns div{
+  cursor: pointer;
 }

@@ -28,8 +28,8 @@ function App() {
                 <Route path='/new' element={<NewTasksPage/>} />
                 <Route path='/urgency' element={<UrgencyViewPage/>} />
                 <Route path='/incomplete' element={<IncompleteTasksPage/>} />
-                <Route path='/task/new' element={<AddTaskPage/>} />
                 <Route path='/task/:id' element={<UpdateViewTaskPage/>} />
+                <Route exact path='/task/new' element={<AddTaskPage/>} />
               </Route>
               <Route path="login" element={<Login/>} />
             </Route>

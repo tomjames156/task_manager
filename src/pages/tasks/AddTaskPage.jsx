@@ -1,9 +1,16 @@
-import ViewAddUpdateTask from "../templates/ViewAddUpdateTask"
+import TaskItem from "../../components/items/TaskItem"
+import Header from "../../components/sectioning/Header"
 
 function AddTaskPage() {
   return (
-    <ViewAddUpdateTask task={null} />
+    <div className="container">
+      <Header/>
+      <main>
+        <TaskItem task_obj={null}/>
+      </main>
+    </div>
   )
 }
+
 
 export default AddTaskPage

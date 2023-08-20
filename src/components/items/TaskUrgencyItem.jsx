@@ -39,7 +39,7 @@ function TaskUrgencyItem({task_obj}) {
     }
 
     return (
-        <div className='task-item' style={{background: urgency_colours[task_obj.urgency]}}><p>{task_obj.body}</p><span className='date'>{time_left}</span>{task_obj?.is_new ? <i className="fa-solid fa-circle-plus"></i> : <i className="fa-solid fa-circle-check"></i>}</div>
+        <div className='task-item' style={{background: urgency_colours[task_obj.urgency]}}><p>{task_obj.header}</p><span className='date'>{time_left}</span>{task_obj?.is_new ? <i className="fa-solid fa-circle-plus"></i> : <i className="fa-solid fa-circle-check"></i>}</div>
     )
 }
 
