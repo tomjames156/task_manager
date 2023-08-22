@@ -10,18 +10,27 @@ export default TaskContext
 
 export const TaskProvider = ({children}) => {
     const mover = useNavigate()
+    const api = process.env.REACT_APP_API_LINK
     const {authTokens} = useContext(AuthContext)
     const {setIsLoading} = useContext(TasksContext)
     const initialState = {
-        current_task : null
+        current_task : null,
+        dialogOpen: false
     }
+    let opened_from = localStorage.getItem('opened_from')
 
     const [state, dispatch] = useReducer(TaskReducer, initialState)
 
     const getTask = async (pk) => {
         setIsLoading(true)
         try{
-            const response = await fetch(`http://127.0.0.1:8000/api/task/${pk}`)
+            const response = await fetch(`${api}/task/${pk}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Access-Key ${authTokens?.access}`
+                }
+            })
             const data = await response.json()
             dispatch({
                 type: 'GET_TASK',
@@ -36,10 +45,11 @@ export const TaskProvider = ({children}) => {
     const updateTask = async (e, formData) => {
         e.preventDefault()
         try{
-            const response = await fetch(`http://127.0.0.1:8000/api/task/${state.current_task.id}`, {
+            const response = await fetch(`${api}/task/${state.current_task.id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Access-Key ${authTokens?.access}`
                 },
                 body: JSON.stringify(formData)
             })
@@ -48,7 +58,7 @@ export const TaskProvider = ({children}) => {
                 action: 'UPDATE_TASK',
                 payload: data
             })
-            mover('/')
+            opened_from !== null ? mover(opened_from): mover('/')
         }catch(err){
             alert('Failed to Fetch')
         }
@@ -56,26 +66,28 @@ export const TaskProvider = ({children}) => {
 
     const deleteTask = async (e) => {
         e.preventDefault()
-        await fetch(`http://127.0.0.1:8000/api/task/${state.current_task.id}`, {
+        await fetch(`${api}/task/${state.current_task.id}`, {
           method: 'DELETE',
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': `Access-Key ${authTokens?.access}`
           }
         })
         dispatch({
             action: 'DELETE_TASK',
             payload: {}
         })
-        mover(-1)
+        opened_from !== null ? mover(opened_from): mover('/')
     }
 
     const createTask = async (e, formData) => {
         e.preventDefault()
         try{
-            let response = await fetch("http://127.0.0.1:8000/api/tasks/", {
+            let response = await fetch(`${api}/tasks/`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Access-Key ${authTokens?.access}`
             },
             body: JSON.stringify(formData)
             })
@@ -87,16 +99,32 @@ export const TaskProvider = ({children}) => {
         }catch(err){
             console.log(err)
         }
-        mover('/')
+        opened_from !== null ? mover(opened_from): mover('/')
+    }
+
+    const cancel = () => {
+        opened_from !== null ? mover(opened_from): mover('/')
+    }
+
+    const openDeleteDialog = () => {
+        dispatch({type: 'OPEN_DIALOG'})
+    }
+
+    const closeDeleteDialog = () => {
+        dispatch({type: 'CLOSE_DIALOG'})
     }
 
     let contextData = {
         current_task: state.current_task,
+        dialogOpen: state.dialogOpen,
         dispatch,
         getTask,
+        cancel,
         updateTask,
         deleteTask,
-        createTask
+        createTask,
+        openDeleteDialog,
+        closeDeleteDialog
     }
 
     return(

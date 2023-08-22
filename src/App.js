@@ -12,12 +12,15 @@ import NewTasksPage from './pages/tasks/NewTasksPage';
 import UrgencyViewPage from './pages/tasks/UrgencyViewPage';
 import AddTaskPage from './pages/tasks/AddTaskPage';
 import UpdateViewTaskPage from './pages/tasks/UpdateViewTaskPage';
+import UserProfile from './pages/templates/UserProfile';
+import { ProfileProvider } from './context/ProfileContext';
 
 function App() {
 
   return (
     <Router>
       <AuthProvider>
+      <ProfileProvider>
       <TasksProvider>
       <TaskProvider>
           <Routes>
@@ -30,12 +33,14 @@ function App() {
                 <Route path='/incomplete' element={<IncompleteTasksPage/>} />
                 <Route path='/task/:id' element={<UpdateViewTaskPage/>} />
                 <Route exact path='/task/new' element={<AddTaskPage/>} />
+                <Route path='/profile' element={<UserProfile/>}></Route>
               </Route>
               <Route path="login" element={<Login/>} />
             </Route>
           </Routes>
       </TaskProvider>
       </TasksProvider>
+      </ProfileProvider>
       </AuthProvider>
     </Router>
   );

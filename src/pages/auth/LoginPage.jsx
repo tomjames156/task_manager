@@ -49,7 +49,7 @@ const Login = () => {
         <h1>Sign In</h1>
         {message && <div className='error'><span>{message}</span><i className="fa-solid fa-circle-xmark" onClick={closeAlert}></i></div>}
         {validateMsg && <div className='error'><span>{validateMsg}</span><i className="fa-solid fa-circle-xmark" onClick={closeAlert}></i></div>}
-        <form onSubmit={validateInputs}>
+        <form onSubmit={validateInputs} autoComplete='off'>
             <div><input value={username || ''} onChange={(e) => {setUsername(e.target.value)}} type="text" name="username" id='username' placeholder='Enter Username' /></div>
             <div className='pass-container'><input value={password || ''} onChange={(e) => {
               setPassword(e.target.value)}} type="password" name="password" id="password" placeholder='Enter Password' />{password && <><FaEye size='1.2rem' className='icon' id='no_slash' onClick={showPassword}/><FaEyeSlash style={{display: 'none'}} size='1.2rem' className='icon' id='slash' onClick={hidePassword}/></>}

@@ -1,16 +1,17 @@
 import {useState, useEffect, useContext} from 'react'
-import { useNavigate } from 'react-router-dom'
 import TaskContext from '../../context/TaskContext'
 import Loader from './Loader'
 import TasksContext from '../../context/TasksContext'
+import AuthContext from '../../context/AuthContext'
+import LogoutDialog from '../dialogs/LogoutDialog'
+import DeleteDialog from '../dialogs/DeleteDialog'
 
 function TaskItem({task_obj}) {
   const colours = ['#34ccff', '#e4f78f', '#ffc983', '#ffa0a1', '#b99aff']
-  const [dialogOpen, setDialogOpen] = useState(false)
+  const {logoutDialog, setLogoutDialog} = useContext(AuthContext)
   const fileInput = document.querySelector('input[type="file"]')
-  const mover = useNavigate()  
   const {isLoading, setIsLoading} = useContext(TasksContext)
-  const {deleteTask, updateTask, createTask} = useContext(TaskContext)
+  const {openDeleteDialog, dialogOpen, updateTask, createTask, cancel} = useContext(TaskContext)
   const [inputs, setInputs] = useState({
     header: '',
     description: '',
@@ -30,7 +31,8 @@ function TaskItem({task_obj}) {
       })
     }
     setIsLoading(false)
-  }, [task_obj])
+    setLogoutDialog(false)
+  }, [])
 
   const handleInputChange = (e) => {
     let name = e.target.name
@@ -46,20 +48,14 @@ function TaskItem({task_obj}) {
     setInputs({...inputs, completed: e.target.checked})
   }
 
-
   if(isLoading){
     return (<Loader />)
   }else{
     return (
       <div style={{position: 'relative'}}>
-        <div className={`delete-dialog ${dialogOpen ? 'dialog-shown' : ''}`}>
-          <p>Are you sure you want to delete this task?</p>
-          <div>
-              <button onClick={() => setDialogOpen(false)} className="cancel">Cancel</button>
-              <button onClick={deleteTask} className="delete-task">Delete</button>
-          </div>
-        </div>
-        <div className="taskItem" style={{background: inputs.task_colour || '#34ccff', filter: dialogOpen ? 'brightness(0.7)': 'none' }} >
+        {(!logoutDialog && dialogOpen) && <DeleteDialog/>}
+        {logoutDialog && <LogoutDialog/>}
+        <div className="taskItem" style={{background: inputs.task_colour || '#34ccff', filter: dialogOpen ? 'brightness(0.7)': 'none',pointerEvents: dialogOpen ? 'none': 'auto' }} >
           <form onSubmit={(e) => {task_obj == null ? createTask(e, inputs) : updateTask(e, inputs)}}>
             <input type="text" required name="header" placeholder="Add a Header" onChange={handleInputChange} value={inputs.header || ''} />
             <textarea required={true} rows={10} name="description" placeholder="Add a Description" onChange={handleInputChange} value={inputs.description || ''} />
@@ -80,13 +76,13 @@ function TaskItem({task_obj}) {
             <div className='file_names'></div>
             <div className='crud-btns'>
                 {task_obj !== null && <div className='delete-btn'>
-                  <button title="Delete Task" onClick={(e) => {e.preventDefault(); setDialogOpen(true)}}>Delete</button>
+                  <button id='delete' title="Delete Task" onClick={(e) => {e.preventDefault(); openDeleteDialog()}}>Delete</button>
                   </div>}
               <div className='color-btns'>
               {colours.map((colour, index) => <div key={index} style={{'background': colour, 'width': '30px', 'height': '30px', borderRadius: '50%', border: 'solid 1px black'}} onClick={() =>handleChangeColor(colour)}></div>)}
               </div>
               <div className='save-cancel-btns'>
-                <button className='cancel' title='Cancel' onClick={(e) => {e.preventDefault(); mover('/')}}>Cancel</button>
+                <button className='cancel' title='Cancel' onClick={(e) => {e.preventDefault(); cancel()}}>Cancel</button>
                 {task_obj !== null ? <button className='save' title="Update Task" type='submit'>Update</button> : <button className='save' title="Save Task" type='submit' >Save</button>}
               </div>
             </div>

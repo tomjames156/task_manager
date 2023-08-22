@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import React, {useContext, useEffect} from 'react'
 import Header from '../../components/sectioning/Header'
 import TaskListItem from '../../components/items/TaskListItem'
 import HomepageKey from '../../components/sectioning/HomepageKey'
@@ -6,19 +6,25 @@ import Loader from '../../components/items/Loader'
 import TasksContext from '../../context/TasksContext'
 import useFetchTasks from '../../hooks/useFetchTasks'
 import AuthContext from '../../context/AuthContext'
+import LogoutDialog from '../../components/dialogs/LogoutDialog'
 
 function TemplatePage({page_title, tasks_type, user, hasFooter, section_text, logout}) {
     const {isLoading, pathMatch} = useContext(TasksContext)
-    const {logoutUser} = useContext(AuthContext)
+    const {logoutDialog, setLogoutDialog} = useContext(AuthContext)
     let {tasks} = useFetchTasks(tasks_type)
+
+    useEffect(() => {
+      setLogoutDialog(false)
+    }, [])
 
     return (
         <div className='container'>
           <Header></Header>
-          <main>
+          {logoutDialog && <LogoutDialog/>}
+          <main style={{filter: logoutDialog ? 'brightness(0.7)' : 'none', pointerEvents: logoutDialog ? 'none': 'auto'}}>
             {isLoading ? <Loader/>: <>
                 <h1 className='tasks-header'>{page_title}</h1>
-                {user && <p className='welcome-text'>{pathMatch('/') && <>Hi there 👋🏾, <strong>{user.username}</strong></>}{tasks && section_text}</p>}
+                {user && <p className='welcome-text'>{pathMatch('/') && <>Hi there 👋🏾, <strong>{user.username}</strong>. </>}{tasks && section_text}</p>}
                 <br/>
                 {tasks.length > 0 ? 
                 <div className='tasks'>
@@ -28,7 +34,7 @@ function TemplatePage({page_title, tasks_type, user, hasFooter, section_text, lo
                 </div> : <h3 style={{color: 'red'}}>You have no {tasks_type} tasks</h3>}
             </>}
             {hasFooter && <HomepageKey/>}
-            {logout && <span style={{ marginTop: '1rem', textAlign: 'right' }} className='logout_btn' title="Sign Out"  onClick={logoutUser}><i color='red' className="fa-solid fa-right-from-bracket fa-lg"></i>Sign out</span> }
+            {logout && <span style={{ marginTop: '1rem', textAlign: 'right' }} className='logout_btn' title="Sign Out"  onClick={() => setLogoutDialog(true)}><i color='red' className="fa-solid fa-right-from-bracket fa-lg"></i>Sign out</span> }
           </main>
         </div>
       )

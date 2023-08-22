@@ -1,6 +1,14 @@
+import { useNavigate, useLocation } from 'react-router-dom'
 import dayjs from 'dayjs'
 
-function TaskUrgencyItem({task_obj}) {    
+function TaskUrgencyItem({task_obj}) {
+    const mover = useNavigate()
+    const locator = useLocation()
+
+    const openTask = () => {
+        localStorage.setItem('opened_from', locator.pathname)
+        mover(`/task/${task_obj.id}`)
+    }
 
     const calculateTimeLeft = (due_date) => {
         const time_params = ['year', 'month', 'day', 'hour', 'minute', 'second']
@@ -39,7 +47,7 @@ function TaskUrgencyItem({task_obj}) {
     }
 
     return (
-        <div className='task-item' style={{background: urgency_colours[task_obj.urgency]}}><p>{task_obj.header}</p><span className='date'>{time_left}</span>{task_obj?.is_new ? <i className="fa-solid fa-circle-plus"></i> : <i className="fa-solid fa-circle-check"></i>}</div>
+        <div onClick={openTask} className='task-item' style={{background: urgency_colours[task_obj.urgency]}}><p>{task_obj.header}</p><span className='date'>{time_left}</span>{task_obj?.completed ? <i className="fa-solid fa-circle-check"></i>: <i class="fa-solid fa-circle-xmark"></i>}</div> 
     )
 }
 

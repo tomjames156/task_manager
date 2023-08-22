@@ -12,6 +12,7 @@ export const AuthProvider = ({children}) => {
     const api = process.env.REACT_APP_API_LINK
     const navigator = useNavigate()
     const [isLoadingToken, setIsLoadingToken] = useState(true)
+    const [logoutDialog, setLogoutDialog] = useState(false)
     const [message, setMessage]= useState('')
 
     const [authTokens, setAuthTokens] = useState(() => localStorage.getItem('authTokens') ? JSON.parse(localStorage.getItem('authTokens')) : null)
@@ -98,7 +99,9 @@ export const AuthProvider = ({children}) => {
         logoutUser,
         authTokens,
         message, 
-        setMessage
+        setMessage,
+        logoutDialog,
+        setLogoutDialog
     }
 
     return(
