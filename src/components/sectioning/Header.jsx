@@ -1,4 +1,4 @@
-import {useContext, useState} from 'react'
+import {useContext, useState, useRef} from 'react'
 import AuthContext from '../../context/AuthContext'
 import { Link } from 'react-router-dom'
 import LinkBtn from '../items/LinkBtn'
@@ -7,10 +7,10 @@ import MenuLink from '../items/MenuLink'
 const Header = () => {
   const {user, setLogoutDialog} = useContext(AuthContext)
   const [showMenu, setShowMenu] = useState(false)
-  const mobile_nav = document.getElementById('mobile_nav')
+  const mobileNavRef = useRef()
 
   document.addEventListener('click', (e) => {
-    if(!(e.target.parentElement === mobile_nav) && !(e.target === mobile_nav)){
+    if(!(e.target.parentElement === mobileNavRef.current) && !(e.target === mobileNavRef.current)){
       setShowMenu(false)
     }else{
       setShowMenu(true)
@@ -38,7 +38,7 @@ const Header = () => {
             <LinkBtn path="/profile" btn_name='My Profile' icon_name='fa-user' />
             {user ? <span className='logout' title="Sign Out"  onClick={() => {setLogoutDialog(true)}}><i color='red' className="fa-solid fa-right-from-bracket fa-lg"></i></span> : <Link to="/login"><i color='red' className="fa-solid fa-right-to-bracket fa-lg"></i></Link>}
           </div>
-          <div id='mobile_nav' onClick={() => {setShowMenu(true)}}>
+          <div id='mobile_nav' ref={mobileNavRef} onClick={() => {setShowMenu(true)}}>
             <i className="fa-solid fa-bars fa-xl"></i>
           </div>
         </div>

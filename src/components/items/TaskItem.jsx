@@ -32,7 +32,7 @@ function TaskItem({task_obj}) {
     }
     setIsLoading(false)
     setLogoutDialog(false)
-  }, [])
+  }, [task_obj])
 
   const handleInputChange = (e) => {
     let name = e.target.name
@@ -52,10 +52,10 @@ function TaskItem({task_obj}) {
     return (<Loader />)
   }else{
     return (
-      <div style={{position: 'relative'}}>
+      <div style={{position: 'relative'}} >
         {(!logoutDialog && dialogOpen) && <DeleteDialog/>}
         {logoutDialog && <LogoutDialog/>}
-        <div className="taskItem" style={{background: inputs.task_colour || '#34ccff', filter: dialogOpen ? 'brightness(0.7)': 'none',pointerEvents: dialogOpen ? 'none': 'auto' }} >
+        <div className="taskItem" style={{background: inputs.task_colour || '#34ccff', filter: dialogOpen || logoutDialog ? 'brightness(0.7)': 'none',pointerEvents: dialogOpen || logoutDialog ? 'none': 'auto' }} >
           <form onSubmit={(e) => {task_obj == null ? createTask(e, inputs) : updateTask(e, inputs)}}>
             <input type="text" required name="header" placeholder="Add a Header" onChange={handleInputChange} value={inputs.header || ''} />
             <textarea required={true} rows={10} name="description" placeholder="Add a Description" onChange={handleInputChange} value={inputs.description || ''} />

@@ -11,6 +11,10 @@ function HomepageKey() {
           <i className="fa-solid fa-circle-check"></i>
           <span>- Completed</span>
         </div>
+        <div>
+          <i className='fa-solid fa-user'></i>
+          <span>- Self Assigned</span>
+        </div>
     </div>
   )
 }

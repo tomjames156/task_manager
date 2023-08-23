@@ -50,6 +50,7 @@ export const AuthProvider = ({children}) => {
     const logoutUser = () => {
         setAuthTokens(null)
         setUser(null)
+        setMessage('Logged out successfully')
         localStorage.removeItem('authTokens')
         navigator('/login')
     }

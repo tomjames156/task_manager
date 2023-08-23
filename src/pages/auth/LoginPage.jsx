@@ -47,7 +47,7 @@ const Login = () => {
     <div className='login-form'>
       <main>
         <h1>Sign In</h1>
-        {message && <div className='error'><span>{message}</span><i className="fa-solid fa-circle-xmark" onClick={closeAlert}></i></div>}
+        {message && <div className={`error ${message === 'Logged out successfully' ? 'success': ''}`}><span>{message}</span><i className="fa-solid fa-circle-xmark" onClick={closeAlert}></i></div>}
         {validateMsg && <div className='error'><span>{validateMsg}</span><i className="fa-solid fa-circle-xmark" onClick={closeAlert}></i></div>}
         <form onSubmit={validateInputs} autoComplete='off'>
             <div><input value={username || ''} onChange={(e) => {setUsername(e.target.value)}} type="text" name="username" id='username' placeholder='Enter Username' /></div>
