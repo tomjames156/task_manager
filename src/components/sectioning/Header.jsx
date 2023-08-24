@@ -45,7 +45,9 @@ const Header = () => {
         <div className={`mobile_options${showMenu ? ' show' : ''}`}>
           <MenuLink path='/' btn_name='All Tasks' icon_name='fa-house' page='Home'></MenuLink>
 
-          <MenuLink path='/new' btn_name='New Tasks' size='lg' icon_name='fa-stopwatch' page='New' />
+          <MenuLink path='/new' btn_name='New Tasks' size='lg' icon_name='fa-stopwatch' page='Recent' />
+
+          <MenuLink path="/task/new" btn_name='Add New Task' icon_name='fa-circle-plus' page='Create' />
           
           <MenuLink path='/completed' btn_name='Completed Tasks' icon_name='fa-circle-check' page='Completed' />
 

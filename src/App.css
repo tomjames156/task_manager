@@ -45,6 +45,14 @@ nav{
   color: black;
 }
 
+.logout-container{
+  width: 100%;
+  font-weight: bold;
+  display: grid;
+  align-items: end;
+  justify-content: end;
+}
+
 .logout{
   cursor: pointer;
   transition: ease 100ms;
@@ -56,7 +64,7 @@ nav{
   cursor: pointer;
 }
 
-.logout_btn i{
+.logout_btn i, .delete_acc_btn i{
   color: red;
   margin-right: 0.25rem;
 }
@@ -190,10 +198,6 @@ main img{
     flex: 30%;
   }
 
-  .logout_btn{
-    display: unset;
-  }
-
 }
 
 
@@ -215,6 +219,10 @@ main img{
     background: white;
     align-items: center;
     z-index: 2;
+  }
+
+  .logout_btn{
+    display: unset;
   }
 
   main{
@@ -692,6 +700,12 @@ input[name='completed']:focus{
   margin-right: 4rem;
 }
 
+.profile-info-container img{
+  border: solid 2px #39ff14;
+  outline: solid 1px gray;
+  border-radius: 50% !important;
+}
+
 .full_name{
   font-size: 2rem;
 }
@@ -752,10 +766,78 @@ input[name='completed']:focus{
   column-gap: 0.15rem;
 }
 
+.profile-update-form{
+  margin: 0 auto;
+  width: 100%;
+  padding: 0 0.5rem;
+}
+
+.profile-update-form img{
+  width: 150px;
+  height: 150px;
+  border-radius: 75px;
+  filter: brightness(0.7);
+  margin: 0 auto;
+  object-fit: cover;
+}
+
+.profile-update-form i.fa-camera{
+  color: white;
+  bottom: 70px;
+  left: 60px;
+}
+
+.profile-update-form label{
+  font-weight: bold;
+}
+
+.profile-update-form input, .profile-update-form textarea{
+  padding: 0.5rem 1rem;
+  border-radius: 1rem;
+  font-size: 1rem;
+  border: 0;
+  background: aliceblue;
+  width: 55%;
+  border: solid 1px #d3d3d3;
+}
+
+.profile-update-form input:focus, .profile-update-form textarea:focus{
+  outline: solid 2px black;
+}
+
+.profile-update-form button{
+  width: fit-content;
+  font-size: 1rem;
+  margin-top: 0.5rem;
+}
+
+.update-img{
+  position: relative;
+  margin: 0 auto;
+}
+
+.update-img i{
+  position: absolute;  
+}
+
+@media screen and (max-width: 1200px) {
+  .profile-update-form input, .profile-update-form textarea{
+    width: 80%;
+  }  
+}
+
+@media screen and (max-width: 650px){
+  .profile-update-form input, .profile-update-form textarea{
+    width: 90%;
+  }  
+}
+
 @media screen and (max-width: 450px){
   .profile-info-container img{
     margin: 0 auto;
-    border-radius: 20rem !important;
+    border-radius: 70px !important;
+    border: solid 2px lime;
+    outline: solid 1px gray;
   }
 
   .location-joined{
@@ -764,4 +846,19 @@ input[name='completed']:focus{
     column-gap: 2rem;
     margin-top: 0.25rem;
   }
+
+  .profile-update-form input, .profile-update-form textarea{
+    width: 100%;
+  }
+
+  .word-count{
+    margin-bottom: 2rem;
+    color: gray;
+    font-size: 0.75rem;
+  }
+
+  .profile-update-form textarea{
+    height: 10rem;
+  }
+
 }

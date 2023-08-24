@@ -36,10 +36,33 @@ export const ProfileProvider = ({children}) => {
         dispatch({type: 'STOP_LOADING'})
     }
 
+    const updateProfile = async (formData) => {
+        dispatch({type: 'LOADING'})
+        try{
+            let response = await fetch(`${api}/profile`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData)
+            })
+
+            let data = await response.json()
+            dispatch({
+                type: 'UPDATE_PROFILE',
+                payload: data
+            })
+        }catch(err){
+            console.log(err)
+        }
+        dispatch({type: 'STOP_LOADING'})
+    }
+
     const contextData = {
         profile: state.profile,
         isLoading: state.isLoading,
-        getProfile
+        getProfile,
+        updateProfile,
     }
 
     return(

@@ -4,7 +4,7 @@ function HomepageKey() {
   return (
     <div className='key'>
         <div>
-          <i class="fa-solid fa-circle-xmark"></i>
+          <i className="fa-solid fa-circle-xmark"></i>
           <span>- Not Completed</span>
         </div>
         <div>

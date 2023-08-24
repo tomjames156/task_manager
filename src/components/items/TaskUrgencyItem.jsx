@@ -50,7 +50,7 @@ function TaskUrgencyItem({task_obj}) {
     }
 
     return (
-        <div onClick={openTask} className='task-item' style={{background: urgency_colours[task_obj.urgency]}}><p>{task_obj.header}</p><span className='date'>{time_left}</span>{task_obj?.completed ? <i className="fa-solid fa-circle-check"></i>: <i className="fa-solid fa-circle-xmark"></i>}{task_obj.user_profile.user === profile.user ? <img className="assigner-img" style={{width: '25px', height: '25px'}} src={task_obj.user_profile.profile_pic.substring(20,)} /> : <img src={profile.profile_pic.substring(20,)} alt="Your profile picture" className="assigner-img" title="You assigned this"/>}</div> 
+        <div onClick={openTask} className='task-item' style={{background: urgency_colours[task_obj.urgency]}}><p>{task_obj.header}</p><span className='date'>{time_left}</span>{task_obj?.completed ? <i className="fa-solid fa-circle-check"></i>: <i className="fa-solid fa-circle-xmark"></i>}{task_obj.user_profile?.user === profile?.user ? <img className="assigner-img" style={{width: '25px', height: '25px'}} src={task_obj.user_profile?.profile_pic.substring(20,)} /> : <img src={profile.profile_pic.substring(20,)} alt="Your profile picture" className="assigner-img" title="You assigned this"/>}</div> 
     )
 }
 

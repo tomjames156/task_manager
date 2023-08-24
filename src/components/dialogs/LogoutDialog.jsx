@@ -8,7 +8,7 @@ function LogoutDialog() {
     <div className='delete-dialog dialog-shown'>
         <p>Are you sure you want to sign out?</p>
         <div>
-            <button onClick={() => {setLogoutDialog(false); console.log('grah')}} className="cancel">Cancel</button>
+            <button onClick={() => {setLogoutDialog(false)}} className="cancel">Cancel</button>
             <button onClick={logoutUser} className="delete-task">Logout</button>
         </div>
     </div>
