@@ -1,16 +1,22 @@
-import { useContext, useState } from "react"
+import { useContext, useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import dayjs from "dayjs"
 import AuthContext from "../../context/AuthContext"
+import ProfileContext from "../../context/ProfileContext"
 
 function UserProfile({profile}) {
   const {setLogoutDialog} = useContext(AuthContext)
+  const {closeAllDialogs} = useContext(ProfileContext)
   const [btnTitle, setBtnTitle] = useState('Copy Email')
   var localizedFormat = require('dayjs/plugin/localizedFormat')
   dayjs.extend(localizedFormat)
   let date = new Date(profile.date_joined).toDateString()
   let dateJoined = dayjs(date).format('LL')
   let mover = useNavigate()
+
+  useEffect(() => {
+    closeAllDialogs()
+  }, [])
 
   const copyEmail = () => {
     navigator.clipboard.writeText(profile.email)
@@ -33,7 +39,7 @@ function UserProfile({profile}) {
     <div><h1>10</h1><p>friends</p></div>
     </div>
     </div>              
-    <p>{profile.bio}</p>
+    <p className="bio">{profile.bio}</p>
     <div className="location-joined">
         <small><i className="fa-solid fa-location-dot fa-xs"></i><span>{profile.location}</span></small>
         <small>Joined <span style={{fontWeight: 'bold'}}>{dateJoined}</span>.</small>

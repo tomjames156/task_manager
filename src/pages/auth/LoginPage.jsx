@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react'
+import { Link } from 'react-router-dom'
 import AuthContext from '../../context/AuthContext'
 import { FaEyeSlash, FaEye } from 'react-icons/fa'
 
@@ -56,6 +57,7 @@ const Login = () => {
             </div>
             <span><button type="submit" title='Submit'>Submit</button></span>
           </form>
+          <p>Don't have an Account.<Link to='/signup'>Sign up</Link></p>
       </main>
     </div>
   )

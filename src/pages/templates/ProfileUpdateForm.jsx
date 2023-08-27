@@ -5,11 +5,18 @@ import ProfileContext from "../../context/ProfileContext"
 
 
 function ProfileUpdateForm({profile}) {
-    const [formData, setFormData] = useState(null)
-    const {updateProfile} = useContext(ProfileContext)
+    const [formData, setFormData] = useState({
+        bio: '',
+        firstname: '',
+        lastname: '',
+        profile_pic: '',
+        email: ''
+    })
+    const {updateProfile, openDialog, closeAllDialogs} = useContext(ProfileContext)
     const mover = useNavigate()
 
     useEffect(() => {
+        closeAllDialogs()
         setFormData({
             bio: profile.bio,
             firstname: profile.firstname,
@@ -33,6 +40,10 @@ function ProfileUpdateForm({profile}) {
     return (
         <>
         <h1><Link title="Back" to='/profile'><i className="fa-solid fa-angle-left"></i></Link></h1>
+            <form action="">
+                <input onChange={handleChange} encType='multipart/form-data'
+                alt="Choose Profile Pic" name='profile_pic' type="file" value=''/>
+            </form>
             <form onSubmit={handleSubmit} className="profile-update-form">
                 <div className="update-img" title="Change Image">
                     <img src={formData?.profile_pic ? formData.profile_pic.substring(20,) : '/profile_pics/no_pfp.jpeg'} alt={`${profile.username}'s profile pic`} />
@@ -48,7 +59,7 @@ function ProfileUpdateForm({profile}) {
                 <label htmlFor="bio">Bio:</label>
                 <textarea rows={7} maxLength={200} type="text" name="bio" id="bio" value={formData?.bio || ''} onChange={handleChange}></textarea><small className="word-count">{`${formData?.bio.length}/200`}</small>
                 <button type="submit">Update</button>
-                <div className='logout-container'><span style={{ marginTop: '1rem', textAlign: 'right', width: 'fit-content', color: 'red' }} className='delete_acc_btn' title="Sign Out"><i className="fa-solid fa-user-minus"></i>Delete Account</span></div>
+                <div className='logout-container'><button onClick={openDialog} style={{ marginTop: '1rem', textAlign: 'right', width: 'fit-content', color: 'red', background: 'none' }} className='delete_acc_btn' title="Sign Out"><i className="fa-solid fa-user-minus"></i>Delete Account</button></div>
             </form>
         </>
     )

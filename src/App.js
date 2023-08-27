@@ -14,6 +14,7 @@ import AddTaskPage from './pages/tasks/AddTaskPage';
 import UpdateViewTaskPage from './pages/tasks/UpdateViewTaskPage';
 import { ProfileProvider } from './context/ProfileContext';
 import ProfileTemplate from './pages/templates/ProfileTemplates'
+import SignUpPage from './pages/auth/SignUpPage';
 
 function App() {
 
@@ -25,6 +26,8 @@ function App() {
       <TaskProvider>
           <Routes>
             <Route path='/'>
+              <Route path="login" element={<Login/>} />
+              <Route path='signup' element={<SignUpPage/>}/>
               <Route element={<PrivateWrapper/>}>
                 <Route index path='' element={<Homepage/>} />
                 <Route path='/completed' element={<CompletedTaskPage/>} />
@@ -36,7 +39,6 @@ function App() {
                 <Route exact path='/profile/' element={<ProfileTemplate/>}></Route>
                 <Route path='/profile/update' element={<ProfileTemplate/>}/>
               </Route>
-              <Route path="login" element={<Login/>} />
             </Route>
           </Routes>
       </TaskProvider>

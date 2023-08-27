@@ -9,6 +9,8 @@ export const ProfileProvider = ({children}) => {
     const {authTokens} = useContext(AuthContext)
     const initialState = {
         isLoading: false,
+        accountDialog: false,
+        confirmDialog: false,
         profile: {}
     }
 
@@ -58,11 +60,44 @@ export const ProfileProvider = ({children}) => {
         dispatch({type: 'STOP_LOADING'})
     }
 
+    const openDialog = (e) => {
+        e.preventDefault()
+        dispatch({type: 'OPEN_DIALOG'})
+    }
+
+    const closeDialog = (e) => {
+        e.preventDefault()
+        dispatch({type: 'CLOSE_DIALOG'})
+    }
+
+    const openConfirmation = (e) => {
+        e.preventDefault()
+        dispatch({type: 'OPEN_CONFIRMATION'})
+    }
+
+    const closeConfirmation = (e) => {
+        e.preventDefault()
+        dispatch({type: 'CLOSE_CONFIRMATION'})
+        closeDialog(e)
+    }
+
+    const closeAllDialogs = () => {
+        dispatch({type: 'CLOSE_DIALOG'})
+        dispatch({type: 'CLOSE_CONFIRMATION'})
+    }
+
     const contextData = {
         profile: state.profile,
         isLoading: state.isLoading,
+        accountDialog: state.accountDialog,
+        confirmDialog: state.confirmDialog,
         getProfile,
         updateProfile,
+        openDialog,
+        closeDialog,
+        openConfirmation,
+        closeConfirmation,
+        closeAllDialogs
     }
 
     return(
