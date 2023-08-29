@@ -1,5 +1,3 @@
-import { act } from "react-dom/test-utils"
-
 const ProfileReducer = (state, action) =>{
     switch(action.type){
         case 'GET_PROFILE':
@@ -18,6 +16,14 @@ const ProfileReducer = (state, action) =>{
             return {...state, confirmDialog:  true}
         case 'CLOSE_CONFIRMATION':
             return {...state, confirmDialog: false}
+        case 'UPDATE_PROFILE_PIC':
+            return {
+                ...state, 
+                profile: {
+                    ...state.profile, 
+                    profile_pic: action.payload
+                }
+            }
         default:
             return state
     }

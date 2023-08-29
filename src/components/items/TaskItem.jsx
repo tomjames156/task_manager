@@ -11,7 +11,7 @@ function TaskItem({task_obj}) {
   const {logoutDialog, setLogoutDialog} = useContext(AuthContext)
   const fileInput = document.querySelector('input[type="file"]')
   const {isLoading, setIsLoading} = useContext(TasksContext)
-  const {openDeleteDialog, dialogOpen, updateTask, createTask, cancel} = useContext(TaskContext)
+  const {openDeleteDialog, dialogOpen, updateTask, createTask, cancel, closeDeleteDialog} = useContext(TaskContext)
   const [inputs, setInputs] = useState({
     header: '',
     description: '',
@@ -21,6 +21,7 @@ function TaskItem({task_obj}) {
   })
 
   useEffect(() => {
+    closeDeleteDialog()
     if(task_obj !== null){
       setInputs({
         header: task_obj?.header,

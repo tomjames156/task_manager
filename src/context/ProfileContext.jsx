@@ -6,6 +6,7 @@ const ProfileContext = createContext()
 
 export const ProfileProvider = ({children}) => {
     const api = process.env.REACT_APP_API_LINK
+    const host = process.env.REACT_APP_BASE_URL
     const {authTokens} = useContext(AuthContext)
     const initialState = {
         isLoading: false,
@@ -45,6 +46,7 @@ export const ProfileProvider = ({children}) => {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Access-Key ${authTokens?.access}`
                 },
                 body: JSON.stringify(formData)
             })
@@ -86,7 +88,30 @@ export const ProfileProvider = ({children}) => {
         dispatch({type: 'CLOSE_CONFIRMATION'})
     }
 
+    const updateProfilePic = async (e, fileInputRef) => {
+        e.preventDefault()
+        let image = new FormData()
+        image.append('profile_pic', fileInputRef.current.files[0])
+        try{
+            let response = await fetch('http://127.0.0.1:8000/api/profile/update_profile_image', {
+            method: 'POST',
+            headers: {
+                'Authorization': `Access-Key ${authTokens?.access}`
+            },
+            body: image
+            })
+            let data = await response.json()
+            dispatch({
+                type: 'UPDATE_PROFILE_PIC',
+                payload: data.profile_pic
+            })
+        }catch(err){
+            console.log(err)
+        }
+    }
+
     const contextData = {
+        host,
         profile: state.profile,
         isLoading: state.isLoading,
         accountDialog: state.accountDialog,
@@ -97,7 +122,8 @@ export const ProfileProvider = ({children}) => {
         closeDialog,
         openConfirmation,
         closeConfirmation,
-        closeAllDialogs
+        closeAllDialogs,
+        updateProfilePic
     }
 
     return(

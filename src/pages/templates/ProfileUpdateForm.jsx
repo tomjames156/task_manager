@@ -1,7 +1,8 @@
-import { useContext, useEffect, useState } from "react"
+import { useContext, useEffect, useState, useRef } from "react"
 import { useNavigate } from "react-router-dom"
 import { Link } from "react-router-dom"
 import ProfileContext from "../../context/ProfileContext"
+import AuthContext from "../../context/AuthContext"
 
 
 function ProfileUpdateForm({profile}) {
@@ -12,8 +13,11 @@ function ProfileUpdateForm({profile}) {
         profile_pic: '',
         email: ''
     })
-    const {updateProfile, openDialog, closeAllDialogs} = useContext(ProfileContext)
+    const {updateProfile, openDialog, closeAllDialogs, host, updateProfilePic} = useContext(ProfileContext)
+    const {authTokens} = useContext(AuthContext)
     const mover = useNavigate()
+    const imageInputRef = useRef()
+    const updateImageBtnRef = useRef()
 
     useEffect(() => {
         closeAllDialogs()
@@ -24,7 +28,7 @@ function ProfileUpdateForm({profile}) {
             profile_pic: profile.profile_pic,
             email: profile.email
         })
-    }, [])
+    }, [profile.profile_pic])
 
     const handleChange = (e) => {
         setFormData({...formData, [e.target.name]: e.target.value})
@@ -35,19 +39,24 @@ function ProfileUpdateForm({profile}) {
         updateProfile(formData)
         mover('/profile')
     }
-  
+
+    const handleImageUpdateSubmit = async (e) => {
+        updateProfilePic(e, imageInputRef)
+    }
+
 
     return (
         <>
         <h1><Link title="Back" to='/profile'><i className="fa-solid fa-angle-left"></i></Link></h1>
-            <form action="">
-                <input onChange={handleChange} encType='multipart/form-data'
+            <form className="pic-update-form" encType="multipart/form-data" onSubmit={handleImageUpdateSubmit}>
+                <input ref={imageInputRef} onInput={() => {updateImageBtnRef.current.click()}}
                 alt="Choose Profile Pic" name='profile_pic' type="file" value=''/>
+                <button ref={updateImageBtnRef}>Update</button>
             </form>
             <form onSubmit={handleSubmit} className="profile-update-form">
                 <div className="update-img" title="Change Image">
-                    <img src={formData?.profile_pic ? formData.profile_pic.substring(20,) : '/profile_pics/no_pfp.jpeg'} alt={`${profile.username}'s profile pic`} />
-                    <i className="fa-solid fa-camera fa-xl"></i>
+                    <img onClick={() => {imageInputRef.current.click()}} src={profile.profile_pic ? `${host}${profile.profile_pic}`: '/profile_pics/no_pfp.jpeg'} alt={`${profile.username}'s profile pic`} />
+                    <i onClick={() => {imageInputRef.current.click()}} className="fa-solid fa-camera fa-xl"></i>
                 </div>
                 <h2 style={{textAlign: 'center'}}>Edit Profile</h2>
                 <label htmlFor="firstname">First name:</label>

@@ -6,7 +6,7 @@ import ProfileContext from "../../context/ProfileContext"
 
 function UserProfile({profile}) {
   const {setLogoutDialog} = useContext(AuthContext)
-  const {closeAllDialogs} = useContext(ProfileContext)
+  const {closeAllDialogs, host} = useContext(ProfileContext)
   const [btnTitle, setBtnTitle] = useState('Copy Email')
   var localizedFormat = require('dayjs/plugin/localizedFormat')
   dayjs.extend(localizedFormat)
@@ -28,7 +28,7 @@ function UserProfile({profile}) {
     <>
     <div className="profile-info-container">
     <img style={{width: '140px', height: '140px', borderRadius: 
-    '1rem', objectFit: 'cover'}} src={profile?.profile_pic ? profile.profile_pic.substring(20,) : '/profile_pics/no_pfp.jpeg'} alt={`${profile.username}'s profile pic`}/>
+    '1rem', objectFit: 'cover'}} src={profile?.profile_pic ? `${host}${profile.profile_pic}` : '/profile_pics/no_pfp.jpeg'} alt={`${profile.username}'s profile pic`}/>
     <div className="info">
     <p className="full_name" style={{fontWeight:"bold"}}>{profile.lastname} {profile.firstname}</p>
     <p>@<span style={{fontWeight: 'bold', color: '#555'}}>{profile.username}</span></p>

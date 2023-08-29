@@ -798,12 +798,13 @@ input[name='completed']:focus{
   filter: brightness(0.7);
   margin: 0 auto;
   object-fit: cover;
+  cursor: pointer;
 }
 
 .profile-update-form i.fa-camera{
   color: white;
-  bottom: 70px;
-  left: 60px;
+  bottom: 80px;
+  left: 65px;
 }
 
 .profile-update-form label{
@@ -830,9 +831,17 @@ input[name='completed']:focus{
   margin-top: 0.5rem;
 }
 
+.pic-update-form{
+  display: none;
+}
+
 .update-img{
   position: relative;
   margin: 0 auto;
+}
+
+.update-img *{
+  cursor: pointer;
 }
 
 .update-img i{
