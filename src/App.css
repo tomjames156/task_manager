@@ -82,6 +82,8 @@ nav{
   flex-direction: column;
   margin-top: 1.5rem;
   row-gap: 1rem;
+  justify-content: center;
+  align-items: center;
 }
 
 .options div#mobile_nav{
@@ -344,11 +346,21 @@ main img{
   margin-bottom: 1rem;
 }
 
-.login-form .icon{
+.login-form .eyes{
   position: absolute;
   right: 0.5rem;
   bottom: 0.75rem;
+  font-size: 0.9rem;
   cursor: pointer;
+}
+
+.login-form input:focus{
+  outline: solid 2px black;
+}
+
+.login-form input.vldtn-err{
+  outline: solid 2px red;
+  border: 0;
 }
 
 form{
@@ -929,4 +941,86 @@ input[name='completed']:focus{
 
 .delete-acc-dialog.acc-deletion p span{
   color: red;
+}
+
+.search-form{
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 1rem;
+}
+
+.search-form input{
+  width: 30%;
+  border-radius: 0.75rem;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border: solid 1px gray;
+}
+
+.search-form button{
+  width: fit-content;
+  border-radius: 0.75rem;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  padding: 0.3rem 1.25rem;
+  border: solid 1px #45b6fe;
+}
+
+.user-item{
+  display: flex;
+  align-items: center;
+  column-gap: 1rem;
+  max-width: fit-content;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+}
+
+.user-item:hover{
+  border: solid 1px #d3d3d3;
+}
+
+.user-item > div{
+  display: flex;
+  align-items: center;
+  width: 20rem;
+  justify-content: space-between;
+}
+
+.user-item div div:first-of-type{
+  display: flex;
+  flex-direction: column;
+}
+
+.user-item img{
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.user-item .fullname{
+  font-weight: bold;
+  color: #555;
+}
+
+.user-item .username{
+  color: #777;
+  font-size: 0.95rem;
+}
+
+.user-item button{
+  border: solid 2px #45b6fe;
+  background: transparent;
+  color: #45b6fe;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  padding: 0.15rem 0.5rem;
+  height: fit-content;
+  transition: all ease 100ms;
+}
+
+.user-item button:hover{
+  background: #45b6fe;
+  color: white;
 }

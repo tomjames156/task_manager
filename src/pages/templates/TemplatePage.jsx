@@ -34,7 +34,7 @@ function TemplatePage({page_title, tasks_type, user, hasFooter, section_text, lo
                 {tasks.map((task) => {
                     return <TaskListItem key={task.id} task_obj={task}></TaskListItem>
                     })}
-                </div> : <h3 style={{color: 'red'}}>You have no {tasks_type} tasks</h3>}
+                </div> : <h3 style={{color: 'red', marginBottom: '0.5rem'}}>You have no {tasks_type} tasks</h3>}
             </>}
             {hasFooter && <HomepageKey/>}
             {logout && <div className='logout-container'><span style={{ marginTop: '1rem', textAlign: 'right', width: 'fit-content' }} className='logout_btn' title="Sign Out"  onClick={() => setLogoutDialog(true)}><i color='red' className="fa-solid fa-right-from-bracket fa-lg"></i>Sign out</span></div> }

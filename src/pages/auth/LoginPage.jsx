@@ -1,7 +1,6 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import AuthContext from '../../context/AuthContext'
-import { FaEyeSlash, FaEye } from 'react-icons/fa'
 
 const Login = () => {
   const {loginUser, message, setMessage} = useContext(AuthContext)
@@ -9,20 +8,20 @@ const Login = () => {
   const [username, setUsername] = useState('')
   const [validateMsg, setValidateMsg]= useState('')
 
-  const eyeSlash = document.getElementById('slash')
-  const no_slash = document.getElementById('no_slash')
-  let passwordInput = document.getElementById('password')
+  const eyeSlash = useRef()
+  const noSlash = useRef()
+  let passwordInput = useRef()
 
   const showPassword = () => {
-    eyeSlash.style.display = ''
-    no_slash.style.display = 'none'
-    passwordInput.type = 'text'
+    eyeSlash.current.style.display = ''
+    noSlash.current.style.display = 'none'
+    passwordInput.current.type = 'text'
   }
 
   const hidePassword = () => {
-    eyeSlash.style.display = 'none'
-    no_slash.style.display = ''
-    passwordInput.type = 'password'
+    eyeSlash.current.style.display = 'none'
+    noSlash.current.style.display = ''
+    passwordInput.current.type = 'password'
   }
 
   const closeAlert = (e) => {
@@ -52,12 +51,12 @@ const Login = () => {
         {validateMsg && <div className='error'><span>{validateMsg}</span><i className="fa-solid fa-circle-xmark" onClick={closeAlert}></i></div>}
         <form onSubmit={validateInputs} autoComplete='off'>
             <div><input value={username || ''} onChange={(e) => {setUsername(e.target.value)}} type="text" name="username" id='username' placeholder='Enter Username' /></div>
-            <div className='pass-container'><input value={password || ''} onChange={(e) => {
-              setPassword(e.target.value)}} type="password" name="password" id="password" placeholder='Enter Password' />{password && <><FaEye size='1.2rem' className='icon' id='no_slash' onClick={showPassword}/><FaEyeSlash style={{display: 'none'}} size='1.2rem' className='icon' id='slash' onClick={hidePassword}/></>}
+            <div className='pass-container'><input ref={passwordInput} value={password || ''} onChange={(e) => {
+              setPassword(e.target.value)}} type="password" name="password" id="password" placeholder='Enter Password' />{password && <><i class="fa-solid fa-eye eyes" ref={noSlash} onClick={showPassword}></i><i ref={eyeSlash} class="fa-solid fa-eye-slash eyes" style={{display: 'none'}} onClick={hidePassword}></i></>}
             </div>
             <span><button type="submit" title='Submit'>Submit</button></span>
           </form>
-          <p>Don't have an Account.<Link to='/signup'>Sign up</Link></p>
+          <p>Don't have an Account?<Link to='/signup'> Sign up</Link></p>
       </main>
     </div>
   )

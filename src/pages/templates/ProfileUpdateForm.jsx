@@ -10,6 +10,7 @@ function ProfileUpdateForm({profile}) {
         bio: '',
         firstname: '',
         lastname: '',
+        location: '',
         profile_pic: '',
         email: ''
     })
@@ -25,6 +26,7 @@ function ProfileUpdateForm({profile}) {
             bio: profile.bio,
             firstname: profile.firstname,
             lastname: profile.lastname,
+            location: profile.location,
             profile_pic: profile.profile_pic,
             email: profile.email
         })
@@ -65,6 +67,8 @@ function ProfileUpdateForm({profile}) {
                 <input type="text" name="lastname" id="lastname" value={formData?.lastname || ''} onChange={handleChange} />
                 <label htmlFor="email">Email:</label>
                 <input type="email" name="email" id="email" value={formData?.email || ''} onChange={handleChange} />
+                <label htmlFor="location">Location:</label>
+                <input type="text" name="location" id="location" value={formData?.location || ''} onChange={handleChange} />
                 <label htmlFor="bio">Bio:</label>
                 <textarea rows={7} maxLength={200} type="text" name="bio" id="bio" value={formData?.bio || ''} onChange={handleChange}></textarea><small className="word-count">{`${formData?.bio.length}/200`}</small>
                 <button type="submit">Update</button>

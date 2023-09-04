@@ -1,4 +1,5 @@
 import { useContext, useState, useEffect } from "react"
+import { Link } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
 import dayjs from "dayjs"
 import AuthContext from "../../context/AuthContext"
@@ -28,7 +29,7 @@ function UserProfile({profile}) {
     <>
     <div className="profile-info-container">
     <img style={{width: '140px', height: '140px', borderRadius: 
-    '1rem', objectFit: 'cover'}} src={profile?.profile_pic ? `${host}${profile.profile_pic}` : '/profile_pics/no_pfp.jpeg'} alt={`${profile.username}'s profile pic`}/>
+    '1rem', objectFit: 'cover'}} src={profile?.profile_pic && `${host}${profile.profile_pic}`} alt={`${profile.username}'s profile pic`}/>
     <div className="info">
     <p className="full_name" style={{fontWeight:"bold"}}>{profile.lastname} {profile.firstname}</p>
     <p>@<span style={{fontWeight: 'bold', color: '#555'}}>{profile.username}</span></p>
@@ -45,6 +46,8 @@ function UserProfile({profile}) {
         <small>Joined <span style={{fontWeight: 'bold'}}>{dateJoined}</span>.</small>
     </div>
     <button className="edit-profile-btn" onClick={() => mover('/profile/update')}>Edit Profile</button>
+    {/* todo add some state like the email confirmation message Like an email message has been sent to you. or even a modal who knows */}
+    {!(profile?.email_confirmed) && <Link style={{color: 'red', fontWeight: 'bold', marginTop: '0.75rem'}}>Confirm your Email</Link>}
     <span style={{marginTop: '2rem', width: 'fit-content'}} className='logout' title="Sign Out" onClick={() => {setLogoutDialog(true)}}><i color='red' className="fa-solid fa-right-from-bracket fa-md"></i> Sign Out</span>
     </>
   )

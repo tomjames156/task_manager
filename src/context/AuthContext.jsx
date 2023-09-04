@@ -55,6 +55,20 @@ export const AuthProvider = ({children}) => {
         navigator('/login')
     }
 
+
+    const signUpUser = async (formData) => {
+        console.log(formData)
+        let response = await fetch(`${api}/users/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        })
+        let data = await response.json()
+        console.log('Just signed you up')
+    }
+
     const refreshToken = async () => {
         try{
             let response = await fetch(`${api}/token/refresh/`, {
@@ -102,7 +116,8 @@ export const AuthProvider = ({children}) => {
         message, 
         setMessage,
         logoutDialog,
-        setLogoutDialog
+        setLogoutDialog,
+        signUpUser
     }
 
     return(

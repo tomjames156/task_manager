@@ -21,12 +21,12 @@ function TaskUrgencyTemplatePage({page_title, tasks_type, user, hasFooter, secti
             {isLoading ? <Loader/>: <>
                 <h1 className='tasks-header'>{page_title}</h1>
                 {user && <p className='welcome-text'>{tasks.length > 0 && section_text}</p>}.
-                {tasks ? 
+                {tasks.length > 0 ? 
                 <div className='tasks'>
-                {tasks.map((task) => {
+                  {tasks.map((task) => {
                     return <TaskUrgencyItem key={task.id} task_obj={task}></TaskUrgencyItem>
                     })}
-                </div> : <h2>You have no {tasks_type} tasks</h2>}
+                </div> : <h3 style={{color: 'red', marginBottom: '0.5rem'}}>You have no tasks</h3>}
             </>}
             {hasFooter && <UrgencyKey/>}
           </main>
