@@ -1,5 +1,5 @@
 import { useReducer, createContext, useContext } from "react"
-import { useNavigate, useLocation } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import TaskReducer from "./TaskReducer"
 import AuthContext from "./AuthContext"
 import TasksContext from "./TasksContext"

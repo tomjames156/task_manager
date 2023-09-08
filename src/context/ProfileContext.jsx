@@ -111,6 +111,7 @@ export const ProfileProvider = ({children}) => {
     }
 
     const contextData = {
+        api,
         host,
         profile: state.profile,
         isLoading: state.isLoading,

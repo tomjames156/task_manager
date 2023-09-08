@@ -28,7 +28,7 @@ const Header = () => {
 
             <LinkBtn path="/task/new" btn_name='Add New Task' icon_name='fa-circle-plus' />
 
-            <LinkBtn path='/search' btn_name='Find Friends' icon_name='fa-users' />
+            <LinkBtn path='/people/search' btn_name='Find Friends' icon_name='fa-users' />
 
             <LinkBtn path='/completed' btn_name='Completed Tasks' icon_name='fa-circle-check' />
 

@@ -14,6 +14,7 @@ import AddTaskPage from './pages/tasks/AddTaskPage';
 import UpdateViewTaskPage from './pages/tasks/UpdateViewTaskPage';
 import { ProfileProvider } from './context/ProfileContext';
 import ProfileTemplate from './pages/templates/ProfileTemplates'
+import PublicUserProfile from './pages/templates/PublicUserProfile';
 import SignUpPage from './pages/auth/SignUpPage';
 import SearchUsers from './pages/templates/SearchUsers';
 
@@ -31,15 +32,16 @@ function App() {
               <Route path='signup' element={<SignUpPage/>}/>
               <Route element={<PrivateWrapper/>}>
                 <Route index path='' element={<Homepage/>} />
-                <Route path='/completed' element={<CompletedTaskPage/>} />
-                <Route path='/new' element={<NewTasksPage/>} />
-                <Route path='/urgency' element={<UrgencyViewPage/>} />
-                <Route path='/incomplete' element={<IncompleteTasksPage/>} />
-                <Route path='/task/:id' element={<UpdateViewTaskPage/>} />
-                <Route exact path='/task/new' element={<AddTaskPage/>} />
-                <Route exact path='/profile/' element={<ProfileTemplate/>}></Route>
-                <Route path='/profile/update' element={<ProfileTemplate/>}/>
-                <Route path='/search' element={<SearchUsers/>}/>
+                <Route path='completed' element={<CompletedTaskPage/>} />
+                <Route path='new' element={<NewTasksPage/>} />
+                <Route path='urgency' element={<UrgencyViewPage/>} />
+                <Route path='incomplete' element={<IncompleteTasksPage/>} />
+                <Route path='task/:id' element={<UpdateViewTaskPage/>} />
+                <Route exact path='task/new' element={<AddTaskPage/>} />
+                <Route exact path='profile' element={<ProfileTemplate/>}></Route>
+                <Route path='profile/update' element={<ProfileTemplate/>}/>
+                <Route path='people/search' element={<SearchUsers/>}/>
+                <Route path='people/:username' element={<PublicUserProfile/>} />
               </Route>
             </Route>
           </Routes>
