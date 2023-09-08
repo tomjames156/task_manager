@@ -12,7 +12,9 @@ export const ProfileProvider = ({children}) => {
         isLoading: false,
         accountDialog: false,
         confirmDialog: false,
-        profile: {}
+        profile: {},
+        publicProfile: {},
+        searchQuery: ''
     }
 
     let [state, dispatch] = useReducer(ProfileReducer, initialState)
@@ -110,6 +112,46 @@ export const ProfileProvider = ({children}) => {
         }
     }
 
+    const getPublicProfile = async (username) => {
+        dispatch({type: 'LOADING'})
+        try{
+          let response = await fetch(`${api}/public_profile/${username}`, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          })
+          let data = await response.json()
+          dispatch({
+            type: 'GET_PUBLIC_PROFILE',
+            payload: data
+          })
+          console.log(data)
+        }catch(err){
+          console.log(err)
+        }
+        dispatch({type: 'STOP_LOADING'})
+    }
+
+    const clearSearchQuery = () => {
+        dispatch({type: 'CLEAR_SEARCH_QUERY'})
+    }
+
+    const updateSearchQuery = (q) => {
+        dispatch({
+            type: 'UPDATE_SEARCH_QUERY',
+            payload: q
+        })
+    }
+
+    const startLoading = () => {
+        dispatch({type: 'LOADING'})
+    }
+
+    const stopLoading = () => {
+        dispatch({type: 'STOP_LOADING'})
+    }
+
     const contextData = {
         api,
         host,
@@ -117,6 +159,8 @@ export const ProfileProvider = ({children}) => {
         isLoading: state.isLoading,
         accountDialog: state.accountDialog,
         confirmDialog: state.confirmDialog,
+        publicProfile: state.publicProfile,
+        searchQuery: state.searchQuery,
         getProfile,
         updateProfile,
         openDialog,
@@ -124,7 +168,12 @@ export const ProfileProvider = ({children}) => {
         openConfirmation,
         closeConfirmation,
         closeAllDialogs,
-        updateProfilePic
+        updateProfilePic,
+        getPublicProfile,
+        clearSearchQuery,
+        updateSearchQuery,
+        startLoading,
+        stopLoading
     }
 
     return(

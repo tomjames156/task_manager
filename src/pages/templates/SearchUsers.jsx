@@ -1,21 +1,22 @@
 import Header from "../../components/sectioning/Header"
 import Loader from "../../components/items/Loader"
-import { useState, useRef } from "react"
+import ProfileContext from "../../context/ProfileContext"
+import { useState, useRef, useContext, useEffect } from "react"
 import UserItem from "../../components/items/UserItem"
 
 function SearchUsers() {
     const searchQueryRef = useRef()
     const [users, setUsers] = useState([])
     const [searchMessage, setSearchMessage] = useState('Find your friends on Taskify 🔍')
-    const [isLoading, setIsLoading] = useState(false)
+    const {isLoading, searchQuery, clearSearchQuery, startLoading, stopLoading, updateSearchQuery} = useContext(ProfileContext)
     const api = process.env.REACT_APP_API_LINK
     const submitRef = useRef()
 
     const searchUsers = async (e) => {
-        setIsLoading(true)
         e.preventDefault()
-        try{
-            if(searchQueryRef.current.value !== ''){
+        startLoading()
+        if(searchQueryRef.current.value !== ''){
+            try{
                 let response = await fetch(`${api}/users/`, {
                     method: 'PUT',
                     headers: {
@@ -27,22 +28,27 @@ function SearchUsers() {
                 })
                 let data = await response.json()
                 setUsers(data)
+                updateSearchQuery(searchQueryRef.current.value)
                 setSearchMessage('No friends found 🥲')
+            }catch(err){
+                console.log(err)
             }
-        }catch(err){
-            console.log(err)
-        }
-
-        if(searchQueryRef.current.value === ''){
+        }else if(searchQueryRef.current.value === ''){
             setUsers([])
+            clearSearchQuery()
             setSearchMessage("Find your friends on Taskify 🔍")
         }
-        setIsLoading(false)
+        stopLoading()
     }
 
     const handleChange = (e) => {
         submitRef.current.click()
     }
+
+    useEffect(() => {
+        searchQueryRef.current.value = searchQuery
+        handleChange()
+    }, [])
 
   return (
     <div className="container">
