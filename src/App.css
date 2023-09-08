@@ -794,7 +794,7 @@ input[name='completed']:focus{
 .location-joined small:first-of-type{
   display: flex;
   align-items: center;
-  column-gap: 0.15rem;
+  column-gap: 0.25rem;
 }
 
 .profile-update-form{
@@ -974,6 +974,10 @@ input[name='completed']:focus{
   border-radius: 0.5rem;
   cursor: pointer;
   padding: 0.5rem 1rem;
+}
+
+.user-item{
+  text-decoration: none;
 }
 
 .user-item:hover{
