@@ -11,10 +11,21 @@ export const TasksProvider = ({children}) => {
     const [isLoading, setIsLoading] = useState(true)
     const [newTasks, setNewTasks] = useState([])
 
-    const location = useLocation()
+    const {pathname} = useLocation()
 
     const pathMatch = (route) => {
-        if(route === location.pathname){
+        let peopleRegex = /people\/?\w*\/?/
+        let profileRegex = /profile\/?\w*\/?/
+
+        if(pathname.match(peopleRegex) && route === '/people/search'){
+            return true
+        }
+
+        if(pathname.match(profileRegex) && route === '/profile'){
+            return true
+        }
+
+        if(route === pathname){
             return true
         }else{
             return false

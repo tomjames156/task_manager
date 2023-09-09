@@ -126,7 +126,7 @@ export const ProfileProvider = ({children}) => {
             type: 'GET_PUBLIC_PROFILE',
             payload: data
           })
-          console.log(data)
+        //   console.log(data)
         }catch(err){
           console.log(err)
         }

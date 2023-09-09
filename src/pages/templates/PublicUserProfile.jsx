@@ -3,13 +3,12 @@ import Header from '../../components/sectioning/Header'
 import Loader from '../../components/items/Loader'
 import ProfileContext from '../../context/ProfileContext'
 import { useContext, useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useLocation } from 'react-router-dom'
 
 function PublicUserProfile() {
   const { host, publicProfile, getPublicProfile, isLoading } = useContext(ProfileContext)
   const { username } = useParams()
   const [btnTitle, setBtnTitle] = useState('Copy Email')
-  const [profile, setProfile] = useState({})
   var localizedFormat = require('dayjs/plugin/localizedFormat')
   dayjs.extend(localizedFormat)
 
@@ -21,7 +20,7 @@ function PublicUserProfile() {
   // if user does not exist then just display user does not exist or move to 404 page
 
   const copyEmail = () => {
-    navigator.clipboard.writeText(profile.email)
+    navigator.clipboard.writeText(publicProfile.email)
     setBtnTitle('Copied')
   }
 
