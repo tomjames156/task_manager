@@ -38,7 +38,7 @@ function PublicUserProfile() {
       >
       {isLoading ? <Loader/> :
         <>
-        <div className="profile-info-container">
+        <div className="profile-info-container public">
             <img style={{width: '140px', height: '140px', borderRadius: 
             '1rem', objectFit: 'cover'}} src={publicProfile?.profile_pic && `${host}${publicProfile.profile_pic}`} alt={publicProfile.username ?`${publicProfile.username}'s profile pic`: ''}/>
             <div className="info">
