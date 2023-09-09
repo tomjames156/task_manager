@@ -9,6 +9,7 @@ import UserProfile from "./UserProfile.jsx"
 import DeleteAccountDialog from "../../components/dialogs/DeleteAccountDialog"
 import ConfirmationDialog from "../../components/dialogs/ConfirmationDialog"
 import LogoutDialog from "../../components/dialogs/LogoutDialog"
+import { motion } from "framer-motion"
 
 
 function ProfileTemplate() {
@@ -30,14 +31,19 @@ function ProfileTemplate() {
           {logoutDialog && <LogoutDialog />}
           {accountDialog && <DeleteAccountDialog/>}
           {confirmDialog && <ConfirmationDialog/>}
-          <main className="profile" style={{filter: logoutDialog || accountDialog ? 'brightness(0.7)' : 'none', pointerEvents: logoutDialog || accountDialog ? 'none': 'auto'}}>
+          <motion.main
+            initial={{opacity: 0}}
+            animate={{opacity: 1}}
+            className="profile" 
+            style={{filter: logoutDialog || accountDialog ? 'brightness(0.7)' : 'none', pointerEvents: logoutDialog || accountDialog ? 'none': 'auto'}}
+          >
           {isLoading ? <Loader/> :
           <>
-            {location.pathname === '/profile' && <UserProfile profile={profile}/>}
             {location.pathname === '/profile/update' && <ProfileUpdateForm profile={profile}/>}
+            {location.pathname === '/profile' && <UserProfile profile={profile}/>}   
           </>
           }
-          </main>
+          </motion.main>
       </div>
   )
 }

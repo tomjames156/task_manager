@@ -2,6 +2,7 @@ import './App.css';
 import Homepage from './pages/tasks/Homepage';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import PrivateWrapper from './utils/PrivateWrapper';
+import PeopleSearchWrapper from './utils/PeopleSearchWrapper';
 import { AuthProvider } from './context/AuthContext';
 import { TasksProvider } from './context/TasksContext';
 import { TaskProvider } from './context/TaskContext';
@@ -38,7 +39,7 @@ function App() {
                 <Route path='incomplete' element={<IncompleteTasksPage/>} />
                 <Route path='task/:id' element={<UpdateViewTaskPage/>} />
                 <Route exact path='task/new' element={<AddTaskPage/>} />
-                <Route exact path='profile' element={<ProfileTemplate/>}></Route>
+                <Route exact path='profile' element={<ProfileTemplate/>}/>
                 <Route path='profile/update' element={<ProfileTemplate/>}/>
                 <Route path='people/search' element={<SearchUsers/>}/>
                 <Route path='people/:username' element={<PublicUserProfile/>} />

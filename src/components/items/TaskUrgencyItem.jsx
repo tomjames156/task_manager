@@ -1,6 +1,7 @@
 import { useNavigate, useLocation } from 'react-router-dom'
 import dayjs from 'dayjs'
 import { useContext } from 'react'
+import { motion } from 'framer-motion'
 import ProfileContext from '../../context/ProfileContext'
 
 function TaskUrgencyItem({task_obj}) {
@@ -9,7 +10,7 @@ function TaskUrgencyItem({task_obj}) {
     const {profile, host} = useContext(ProfileContext)
 
     const openTask = () => {
-        localStorage.setItem('opened_from', locator.pathname)
+        sessionStorage.setItem('opened_from', locator.pathname)
         mover(`/task/${task_obj.id}`)
     }
 
@@ -50,7 +51,10 @@ function TaskUrgencyItem({task_obj}) {
     }
 
     return (
-        <div onClick={openTask} className='task-item' style={{background: urgency_colours[task_obj.urgency]}}><p>{task_obj.header}</p><span className='date'>{time_left}</span>{task_obj?.completed ? <i className="fa-solid fa-circle-check"></i>: <i className="fa-solid fa-circle-xmark"></i>}{task_obj.user_profile?.user === profile?.user ? <img className="assigner-img" style={{width: '25px', height: '25px'}} src={`${host}${task_obj.user_profile?.profile_pic}`} /> : <img src={`${host}${profile?.profile_pic}`} alt="Your profile picture" className="assigner-img" title="You assigned this"/>}</div> 
+        <motion.div
+            initial={{opacity: 0, x: -50}}
+            animate={{opacity: 1, x: 0}}
+        onClick={openTask} className='task-item' style={{background: urgency_colours[task_obj.urgency]}}><p>{task_obj.header}</p><span className='date'>{time_left}</span>{task_obj?.completed ? <i className="fa-solid fa-circle-check"></i>: <i className="fa-solid fa-circle-xmark"></i>}{task_obj.user_profile?.user === profile?.user ? <img className="assigner-img" style={{width: '25px', height: '25px'}} src={`${host}${task_obj.user_profile?.profile_pic}`} /> : <img src={`${host}${profile?.profile_pic}`} alt="Your profile picture" className="assigner-img" title="You assigned this"/>}</motion.div> 
     )
 }
 

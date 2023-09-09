@@ -950,7 +950,7 @@ input[name='completed']:focus{
 }
 
 .search-form input{
-  width: 30%;
+  width: 20rem;
   border-radius: 0.75rem;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;

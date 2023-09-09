@@ -17,7 +17,8 @@ export const TaskProvider = ({children}) => {
         current_task : null,
         dialogOpen: false
     }
-    let opened_from = localStorage.getItem('opened_from')
+
+    let opened_from = sessionStorage.getItem('opened_from')
 
     const [state, dispatch] = useReducer(TaskReducer, initialState)
 

@@ -30,7 +30,7 @@ function TemplatePage({page_title, tasks_type, user, hasFooter, section_text, lo
                 {user && <p className='welcome-text'>{pathMatch('/') && <>Hi there 👋🏾, <strong>{user.username}</strong>. </>}{tasks && section_text}</p>}
                 <br/>
                 {tasks.length > 0 ? 
-                <div className='tasks'>
+                <div className='tasks' style={{display: 'relative'}}>
                 {tasks.map((task) => {
                     return <TaskListItem key={task.id} task_obj={task}></TaskListItem>
                     })}
