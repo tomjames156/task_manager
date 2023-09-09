@@ -3,12 +3,14 @@ import Loader from "../../components/items/Loader"
 import ProfileContext from "../../context/ProfileContext"
 import { useState, useRef, useContext, useEffect } from "react"
 import UserItem from "../../components/items/UserItem"
+import AuthContext from "../../context/AuthContext"
 
 function SearchUsers() {
     const searchQueryRef = useRef()
     const [users, setUsers] = useState([])
     const [searchMessage, setSearchMessage] = useState('Find your friends on Taskify 🔍')
     const {isLoading, searchQuery, clearSearchQuery, startLoading, stopLoading, updateSearchQuery} = useContext(ProfileContext)
+    const {authTokens} = useContext(AuthContext)
     const api = process.env.REACT_APP_API_LINK
     const submitRef = useRef()
 
@@ -21,6 +23,7 @@ function SearchUsers() {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
+                        'Authorization': `Access-Key ${authTokens?.access}`
                     },
                     body: JSON.stringify({
                         "query": searchQueryRef.current.value

@@ -12,12 +12,13 @@ import ProfileContext from '../../context/ProfileContext'
 function TemplatePage({page_title, tasks_type, user, hasFooter, section_text, logout}) {
     const {isLoading, pathMatch} = useContext(TasksContext)
     const {logoutDialog, setLogoutDialog} = useContext(AuthContext)
-    const {getProfile} = useContext(ProfileContext)
+    const {getProfile, clearSearchQuery} = useContext(ProfileContext)
     let {tasks} = useFetchTasks(tasks_type)
 
     useEffect(() => {
       setLogoutDialog(false)
       getProfile()
+      sessionStorage.getItem('just_logged') && clearSearchQuery(); sessionStorage.setItem('just_logged', false)
     }, [])
 
     return (

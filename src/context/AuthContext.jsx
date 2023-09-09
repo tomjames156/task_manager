@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState} from "react";
+import { createContext, useEffect, useState } from "react";
 import jwtDecode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 
@@ -41,6 +41,7 @@ export const AuthProvider = ({children}) => {
             setAuthTokens(data)
             setUser(jwtDecode(data.access))
             localStorage.setItem('authTokens', JSON.stringify(data))
+            sessionStorage.setItem('just_logged', true)
             navigator('/')
         }else{
             setMessage('Incorrect details provided')
@@ -57,16 +58,19 @@ export const AuthProvider = ({children}) => {
 
 
     const signUpUser = async (formData) => {
-        console.log(formData)
-        let response = await fetch(`${api}/users/`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(formData)
-        })
-        let data = await response.json()
-        console.log('Just signed you up')
+        try{
+            await fetch(`${api}/users/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            })
+            console.log('Congratulations!! you\'ve successfully signed up')
+        }
+        catch(err){
+            console.log("Sign Up Failed")
+        }
     }
 
     const refreshToken = async () => {

@@ -2,7 +2,7 @@ import './App.css';
 import Homepage from './pages/tasks/Homepage';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import PrivateWrapper from './utils/PrivateWrapper';
-import PeopleSearchWrapper from './utils/PeopleSearchWrapper';
+import Error404Page from './pages/templates/Error404Page';
 import { AuthProvider } from './context/AuthContext';
 import { TasksProvider } from './context/TasksContext';
 import { TaskProvider } from './context/TaskContext';
@@ -44,6 +44,7 @@ function App() {
                 <Route path='people/search' element={<SearchUsers/>}/>
                 <Route path='people/:username' element={<PublicUserProfile/>} />
               </Route>
+              <Route path='*' element={<Error404Page/>} />
             </Route>
           </Routes>
       </TaskProvider>

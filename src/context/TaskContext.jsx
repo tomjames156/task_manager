@@ -32,13 +32,16 @@ export const TaskProvider = ({children}) => {
                     'Authorization': `Access-Key ${authTokens?.access}`
                 }
             })
+            if(response.status === 404){
+                mover('/404')
+            }
             const data = await response.json()
             dispatch({
                 type: 'GET_TASK',
                 payload: data
             })
         }catch(err){
-            alert('Failed To Fetch')
+            console.log(err)
         }
         setIsLoading(false)
     }

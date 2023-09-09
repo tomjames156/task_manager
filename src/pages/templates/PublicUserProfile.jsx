@@ -3,7 +3,8 @@ import Header from '../../components/sectioning/Header'
 import Loader from '../../components/items/Loader'
 import ProfileContext from '../../context/ProfileContext'
 import { useContext, useState, useEffect } from 'react'
-import { useParams, useLocation } from 'react-router-dom'
+import {motion} from 'framer-motion'
+import { useParams } from 'react-router-dom'
 
 function PublicUserProfile() {
   const { host, publicProfile, getPublicProfile, isLoading } = useContext(ProfileContext)
@@ -31,12 +32,15 @@ function PublicUserProfile() {
   return (
     <div className='container'>
       <Header/>
-      <main>
+      <motion.main
+        initial={{opacity: 0}}
+        animate={{opacity: 1}}
+      >
       {isLoading ? <Loader/> :
         <>
         <div className="profile-info-container">
             <img style={{width: '140px', height: '140px', borderRadius: 
-            '1rem', objectFit: 'cover'}} src={publicProfile?.profile_pic && `${host}${publicProfile.profile_pic}`} alt={`${publicProfile.username}'s profile pic`}/>
+            '1rem', objectFit: 'cover'}} src={publicProfile?.profile_pic && `${host}${publicProfile.profile_pic}`} alt={publicProfile.username ?`${publicProfile.username}'s profile pic`: ''}/>
             <div className="info">
               <p className="full_name" style={{fontWeight:"bold"}}>{publicProfile.lastname} {publicProfile.firstname}</p>
               <p>@<span style={{fontWeight: 'bold', color: '#555'}}>{publicProfile.username}</span></p>
@@ -49,7 +53,7 @@ function PublicUserProfile() {
             <small>Joined <span style={{fontWeight: 'bold'}}>{getFormattedDate(publicProfile?.date_joined)}</span>.</small>
         </div>
         </>}
-      </main>
+      </motion.main>
     </div>
   )
 }

@@ -1,10 +1,12 @@
 import { useReducer, createContext, useContext} from "react";
+import { useNavigate } from "react-router-dom";
 import ProfileReducer from "./ProfileReducer";
 import AuthContext from "./AuthContext";
 
 const ProfileContext = createContext()
 
 export const ProfileProvider = ({children}) => {
+    const mover = useNavigate()
     const api = process.env.REACT_APP_API_LINK
     const host = process.env.REACT_APP_BASE_URL
     const {authTokens} = useContext(AuthContext)
@@ -29,7 +31,6 @@ export const ProfileProvider = ({children}) => {
                     'Authorization': `Access-Key ${authTokens?.access}`
                 }
             })
-    
             let data = await response.json()
             dispatch({
                 type: 'GET_PROFILE',
@@ -118,9 +119,13 @@ export const ProfileProvider = ({children}) => {
           let response = await fetch(`${api}/public_profile/${username}`, {
             method: 'GET',
             headers: {
-              'Content-Type': 'application/json'
+              'Content-Type': 'application/json',
+              'Authorization': `Access-Key ${authTokens?.access}`
             }
           })
+          if (response.status === 404){
+            mover('/404')
+            }
           let data = await response.json()
           dispatch({
             type: 'GET_PUBLIC_PROFILE',
