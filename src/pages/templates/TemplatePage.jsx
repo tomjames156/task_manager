@@ -18,7 +18,6 @@ function TemplatePage({page_title, tasks_type, user, hasFooter, section_text, lo
     useEffect(() => {
       setLogoutDialog(false)
       getProfile()
-      sessionStorage.getItem('just_logged') && clearSearchQuery(); sessionStorage.setItem('just_logged', false)
     }, [])
 
     return (

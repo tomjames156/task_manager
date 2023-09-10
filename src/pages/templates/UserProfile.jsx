@@ -7,7 +7,7 @@ import ProfileContext from "../../context/ProfileContext"
 
 function UserProfile({profile}) {
   const {setLogoutDialog} = useContext(AuthContext)
-  const {closeAllDialogs, host} = useContext(ProfileContext)
+  const {closeAllDialogs, host, getFriends} = useContext(ProfileContext)
   const [btnTitle, setBtnTitle] = useState('Copy Email')
   var localizedFormat = require('dayjs/plugin/localizedFormat')
   dayjs.extend(localizedFormat)
@@ -36,8 +36,8 @@ function UserProfile({profile}) {
     <p className="email_address">{profile.email}<a href={`mailto:${profile.email}`} title="Send Email"><i className="fa-regular fa-envelope fa-xs"></i></a><span title={btnTitle} onClick={copyEmail} className="copy_address"><i className="fa-regular fa-clipboard fa-xs"></i></span></p>
     </div>
     <div className="friends">
-    <div><h1>{profile?.tasks && profile.tasks.length}</h1><p>tasks</p> </div>
-    <div><h1>10</h1><p>friends</p></div>
+    <div style={{ cursor: 'pointer' }} onClick={() => mover('/')}><h1>{profile?.tasks && profile.tasks.length}</h1><p>{profile?.tasks && profile.tasks.length !== 1 ? 'tasks' : 'task'}</p> </div>
+    <div style={{ cursor: 'pointer' }} onClick={() => getFriends()} ><h1>{profile?.followers && profile.followers.length}</h1><p>{profile?.followers && profile.followers.length !== 1 ? 'friends' : 'friend'}</p></div>
     </div>
     </div>              
     <p className="bio">{profile.bio}</p>

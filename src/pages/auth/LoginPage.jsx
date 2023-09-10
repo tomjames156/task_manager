@@ -52,7 +52,7 @@ const Login = () => {
         <form onSubmit={validateInputs} autoComplete='off'>
             <div><input value={username || ''} onChange={(e) => {setUsername(e.target.value)}} type="text" name="username" id='username' placeholder='Enter Username' /></div>
             <div className='pass-container'><input ref={passwordInput} value={password || ''} onChange={(e) => {
-              setPassword(e.target.value)}} type="password" name="password" id="password" placeholder='Enter Password' />{password && <><i class="fa-solid fa-eye eyes" ref={noSlash} onClick={showPassword}></i><i ref={eyeSlash} class="fa-solid fa-eye-slash eyes" style={{display: 'none'}} onClick={hidePassword}></i></>}
+              setPassword(e.target.value)}} type="password" name="password" id="password" placeholder='Enter Password' />{password && <><i className="fa-solid fa-eye eyes" ref={noSlash} onClick={showPassword}></i><i ref={eyeSlash} className="fa-solid fa-eye-slash eyes" style={{display: 'none'}} onClick={hidePassword}></i></>}
             </div>
             <span><button type="submit" title='Submit'>Submit</button></span>
           </form>

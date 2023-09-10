@@ -157,6 +157,38 @@ export const ProfileProvider = ({children}) => {
         dispatch({type: 'STOP_LOADING'})
     }
 
+    const startFriendship = async (friend_name) => {
+        try{
+            await fetch(`${api}/friends/`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Access-Key ${authTokens?.access}`
+                },
+                body: JSON.stringify({username: friend_name})
+            })
+        }catch(err){
+            console.log(err)
+        }
+    }
+
+    const getFriends = async () => {
+        try{
+            let response = await fetch(`${api}/friends`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Access-Key ${authTokens?.access}`
+                }
+            })
+
+            let data = await response.json()
+            console.log(data)
+        }catch(err){
+            console.log(err)
+        }
+    }
+
     const contextData = {
         api,
         host,
@@ -178,7 +210,9 @@ export const ProfileProvider = ({children}) => {
         clearSearchQuery,
         updateSearchQuery,
         startLoading,
-        stopLoading
+        stopLoading,
+        startFriendship,
+        getFriends
     }
 
     return(

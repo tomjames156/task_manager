@@ -59,14 +59,13 @@ export const AuthProvider = ({children}) => {
 
     const signUpUser = async (formData) => {
         try{
-            await fetch(`${api}/users/`, {
+            await fetch(`${api}/users/signup/`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(formData)
             })
-            console.log('Congratulations!! you\'ve successfully signed up')
         }
         catch(err){
             console.log("Sign Up Failed")
