@@ -26,7 +26,6 @@ function UserItem({user_obj}) {
           </div>
         </div>
       </div>
-      {profile.username !== user_obj.username && <button title="Follow" onClick={() => startFriendship(user_obj.username)}>Friend</button>}
     </motion.span>
   )
 }

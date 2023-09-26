@@ -112,6 +112,7 @@ export const AuthProvider = ({children}) => {
     }, [authTokens, isLoadingToken])
 
     const contextData = {
+        api,
         loginUser, 
         user,
         logoutUser,

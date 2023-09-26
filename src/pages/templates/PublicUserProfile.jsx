@@ -7,8 +7,10 @@ import {motion} from 'framer-motion'
 import { useParams } from 'react-router-dom'
 
 function PublicUserProfile() {
-  const { host, publicProfile, getPublicProfile, isLoading } = useContext(ProfileContext)
+  const { host, profile, publicProfile, getPublicProfile, isLoading, startFriendship } = useContext(ProfileContext)
   const { username } = useParams()
+  const [ friends, setFriends ] = useState(false)
+  const all_followers = []
   const [btnTitle, setBtnTitle] = useState('Copy Email')
   var localizedFormat = require('dayjs/plugin/localizedFormat')
   dayjs.extend(localizedFormat)
@@ -27,6 +29,10 @@ function PublicUserProfile() {
 
   useEffect(() => {
     getPublicProfile(username)
+    for(let follower of profile.followers){
+      all_followers.push(follower.user_id)
+    }
+    console.log(all_followers)
   }, [])
 
   return (
@@ -45,6 +51,9 @@ function PublicUserProfile() {
               <p className="full_name" style={{fontWeight:"bold"}}>{publicProfile.lastname} {publicProfile.firstname}</p>
               <p>@<span style={{fontWeight: 'bold', color: '#555'}}>{publicProfile.username}</span></p>
               <p className="email_address">{publicProfile.email}<a href={`mailto:${publicProfile.email}`} title="Send Email"><i className="fa-regular fa-envelope fa-xs"></i></a><span title={btnTitle} onClick={copyEmail} className="copy_address"><i className="fa-regular fa-clipboard fa-xs"></i></span></p>
+            </div>
+            <div className="friends">              
+              {profile.username !== publicProfile.username && !friends && <button title="Follow" onClick={() => startFriendship(publicProfile.username)}>Follow</button>}
             </div>
         </div>              
         <p className="bio">{publicProfile.bio}</p>

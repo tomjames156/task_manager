@@ -1017,20 +1017,20 @@ input[name='completed']:focus{
   font-size: 0.95rem;
 }
 
-.user-item button{
+.friends button{
   border: solid 2px #45b6fe;
-  background: transparent;
-  color: #45b6fe;
-  font-size: 1rem;
+  background: #45b6fe;
+  color: white;
+  font-size: 1.1rem;
   border-radius: 0.5rem;
   padding: 0.15rem 0.5rem;
   height: fit-content;
   transition: all ease 100ms;
 }
 
-.user-item button:hover{
-  background: #45b6fe;
-  color: white;
+.friends button:hover{
+  background: transparent;
+  color: #45b6fe;
 }
 
 .profile-info-container.public img{

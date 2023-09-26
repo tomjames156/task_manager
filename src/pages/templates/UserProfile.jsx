@@ -37,7 +37,7 @@ function UserProfile({profile}) {
     </div>
     <div className="friends">
     <div style={{ cursor: 'pointer' }} onClick={() => mover('/')}><h1>{profile?.tasks && profile.tasks.length}</h1><p>{profile?.tasks && profile.tasks.length !== 1 ? 'tasks' : 'task'}</p> </div>
-    <div style={{ cursor: 'pointer' }} onClick={() => getFriends()} ><h1>{profile?.followers && profile.followers.length}</h1><p>{profile?.followers && profile.followers.length !== 1 ? 'friends' : 'friend'}</p></div>
+    <div style={{ cursor: 'pointer' }} onClick={() => mover('/profile/friends')} ><h1>{profile?.followers && profile.followers.length}</h1><p>{profile?.followers && profile.followers.length !== 1 ? 'friends' : 'friend'}</p></div>
     </div>
     </div>              
     <p className="bio">{profile.bio}</p>
