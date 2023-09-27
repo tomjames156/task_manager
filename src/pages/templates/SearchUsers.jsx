@@ -2,10 +2,12 @@ import Header from "../../components/sectioning/Header"
 import Loader from "../../components/items/Loader"
 import ProfileContext from "../../context/ProfileContext"
 import { useState, useRef, useContext, useEffect } from "react"
+import { useNavigate } from "react-router-dom"
 import UserItem from "../../components/items/UserItem"
 import AuthContext from "../../context/AuthContext"
 
 function SearchUsers() {
+    const mover = useNavigate()
     const searchQueryRef = useRef()
     const [users, setUsers] = useState([])
     const [searchMessage, setSearchMessage] = useState('Find your friends on Taskify 🔍')
@@ -56,15 +58,15 @@ function SearchUsers() {
   return (
     <div className="container">
         <Header/>
-        <main>
+        <main id="find-friends">
             <div>
                 <form autoComplete="off" onSubmit={searchUsers} className="search-form">
                     <input autoFocus type="text" name="query" onChange={handleChange} placeholder="Search" ref={searchQueryRef}/>
                     <button ref={submitRef} type="submit"><i className="fa-solid fa-magnifying-glass"></i></button>
                 </form>
                 {isLoading  ? <Loader/> : users.length > 0 ? users.map((user, index) => <UserItem key={index} user_obj={user} />) : searchMessage }
-                
             </div>
+            <div onClick={() => {mover('/people/followers')}} style={{fontWeight: 'bold', marginTop: '2rem'}}><i className="fa-solid fa-users-viewfinder"></i>Follow requests</div>
         </main>
     </div>
   )

@@ -15,6 +15,7 @@ export const ProfileProvider = ({children}) => {
         accountDialog: false,
         confirmDialog: false,
         profile: {},
+        friends: {},
         publicProfile: {},
         searchQuery: ''
     }
@@ -183,7 +184,10 @@ export const ProfileProvider = ({children}) => {
             })
 
             let data = await response.json()
-            return data
+            dispatch({
+                type: 'GET_FRIENDS',
+                payload: data
+            })
         }catch(err){
             console.log(err)
         }
@@ -198,6 +202,7 @@ export const ProfileProvider = ({children}) => {
         confirmDialog: state.confirmDialog,
         publicProfile: state.publicProfile,
         searchQuery: state.searchQuery,
+        friends: state.friends,
         getProfile,
         updateProfile,
         openDialog,
@@ -212,7 +217,7 @@ export const ProfileProvider = ({children}) => {
         startLoading,
         stopLoading,
         startFriendship,
-        getFriends
+        getFriends,
     }
 
     return(

@@ -30,6 +30,11 @@ const ProfileReducer = (state, action) =>{
             return {...state, confirmDialog:  true}
         case 'CLOSE_CONFIRMATION':
             return {...state, confirmDialog: false}
+        case 'GET_FRIENDS':
+            return {
+                ...state, 
+                friends: action.payload
+            }
         default:
             return state
     }

@@ -19,6 +19,7 @@ import PublicUserProfile from './pages/templates/PublicUserProfile';
 import SignUpPage from './pages/auth/SignUpPage';
 import SearchUsers from './pages/templates/SearchUsers';
 import FriendsPage from './pages/templates/FriendsPage';
+import FollowingPage from './pages/templates/FollowingPage';
 
 function App() {
 
@@ -42,7 +43,8 @@ function App() {
                 <Route exact path='task/new' element={<AddTaskPage/>} />
                 <Route exact path='profile' element={<ProfileTemplate/>}/>
                 <Route path='profile/update' element={<ProfileTemplate/>}/>
-                <Route path='profile/friends' element={<FriendsPage/>}/>
+                <Route path='people/followers' element={<FriendsPage/>}/>
+                <Route path='people/following' element={<FollowingPage/>}/>
                 <Route path='people/search' element={<SearchUsers/>}/>
                 <Route path='people/:username' element={<PublicUserProfile/>} />
               </Route>
