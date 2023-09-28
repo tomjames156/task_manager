@@ -1,5 +1,6 @@
 import { useContext } from "react"
 import TasksContext from "../../context/TasksContext"
+import PropTypes from 'prop-types'
 
 function UrgencyKey({shown}) {
     const {setShowUrgencyKey} = useContext(TasksContext)
@@ -30,6 +31,14 @@ function UrgencyKey({shown}) {
         <button onClick={() => {setShowUrgencyKey(false)}}>CLOSE</button>
     </div>
   )
+}
+
+UrgencyKey.propTypes = {
+    shown: PropTypes.bool
+}
+
+UrgencyKey.defaultProps = {
+    shown: false
 }
 
 export default UrgencyKey

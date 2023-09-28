@@ -11,6 +11,10 @@ const TaskReducer = (state, action) => {
             return {...state, dialogOpen: true}
         case 'CLOSE_DIALOG':
             return {...state, dialogOpen: false}
+        case 'START_ASSIGN':
+            return {...state, assign: true}
+        case 'CANCEL_ASSIGN':
+            return {...state, assign: false}
         default:
             return state
     }

@@ -1,17 +1,21 @@
 import {useState, useEffect, useContext} from 'react'
+import { motion } from 'framer-motion'
 import TaskContext from '../../context/TaskContext'
 import Loader from './Loader'
 import TasksContext from '../../context/TasksContext'
 import AuthContext from '../../context/AuthContext'
 import LogoutDialog from '../dialogs/LogoutDialog'
 import DeleteDialog from '../dialogs/DeleteDialog'
+import ProfileContext from '../../context/ProfileContext'
+import UserItemAssign from './UserItemAssign'
 
 function TaskItem({task_obj}) {
   const colours = ['#34ccff', '#e4f78f', '#ffc983', '#ffa0a1', '#b99aff']
+  const [assignTo, setAssignTo] = useState([])
   const {logoutDialog, setLogoutDialog} = useContext(AuthContext)
   const fileInput = document.querySelector('input[type="file"]')
   const {isLoading, setIsLoading} = useContext(TasksContext)
-  const {openDeleteDialog, dialogOpen, updateTask, createTask, cancel, closeDeleteDialog} = useContext(TaskContext)
+  const {openDeleteDialog, dialogOpen, updateTask, createTask, cancel, closeDeleteDialog, assign, startAssigning, cancelAssigning} = useContext(TaskContext)
   const [inputs, setInputs] = useState({
     header: '',
     description: '',
@@ -19,9 +23,11 @@ function TaskItem({task_obj}) {
     completed: false,
     task_colour: '#34ccff'
   })
+  const {friends, getFriends} = useContext(ProfileContext)
 
   useEffect(() => {
     closeDeleteDialog()
+    getFriends()
     if(task_obj !== null){
       setInputs({
         header: task_obj?.header,
@@ -49,11 +55,19 @@ function TaskItem({task_obj}) {
     setInputs({...inputs, completed: e.target.checked})
   }
 
+  const assignToUser = (username) => {
+    // setAssignTo(prevState => prevState.push(username))
+    // console.log(assignTo)
+  }
+
   if(isLoading){
     return (<Loader />)
   }else{
     return (
-      <div style={{position: 'relative'}} >
+      <motion.div
+        initial={{opacity: 0}}
+        animate={{opacity: 1}} 
+        style={{position: 'relative'}} >
         {(!logoutDialog && dialogOpen) && <DeleteDialog/>}
         {logoutDialog && <LogoutDialog/>}
         <div className="taskItem" style={{background: inputs.task_colour || '#34ccff', filter: dialogOpen || logoutDialog ? 'brightness(0.7)': 'none',pointerEvents: dialogOpen || logoutDialog ? 'none': 'auto' }} >
@@ -70,7 +84,16 @@ function TaskItem({task_obj}) {
                 <i className="fa-solid fa-users fa-lg" title='Assign to Friends'></i>
               </div>
               <div className='assigned_friends'>
-                <p>Assigned Friends</p>
+                <p onClick={startAssigning}>Assigned Friends</p>
+                {assign && <>
+                <div className='assignTask'>
+                  <p>Assign To:</p>{friends.length > 1 && friends.map((friend, index) => <UserItemAssign onClick={() => console.log('grah')} key={index} user_obj={friend}/>)}
+                  <div className='buttons'>
+                    <div className='close' onClick={cancelAssigning}>Close</div>
+                    <div className='assign' onClick={cancelAssigning}>Assign</div>
+                  </div>
+                </div>
+                </>}
               </div>
             </div>
             <input style={{display: 'none'}} type="file" />
@@ -89,7 +112,7 @@ function TaskItem({task_obj}) {
             </div>
           </form>
         </div>
-      </div>
+      </motion.div>
     )
   }
 }

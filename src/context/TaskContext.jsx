@@ -15,7 +15,9 @@ export const TaskProvider = ({children}) => {
     const {setIsLoading} = useContext(TasksContext)
     const initialState = {
         current_task : null,
-        dialogOpen: false
+        dialogOpen: false,
+        assign: false,
+        assignTo: []
     }
 
     let opened_from = sessionStorage.getItem('opened_from')
@@ -49,7 +51,7 @@ export const TaskProvider = ({children}) => {
     const updateTask = async (e, formData) => {
         e.preventDefault()
         try{
-            const response = await fetch(`${api}/task/${state.current_task.id}`, {
+            const response = await fetch(`${api}/task/${state.current_task.id}/`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -118,9 +120,20 @@ export const TaskProvider = ({children}) => {
         dispatch({type: 'CLOSE_DIALOG'})
     }
 
+    const startAssigning = () => {
+        dispatch({type: 'START_ASSIGN'})
+        console.log('grah')
+    }
+
+    const cancelAssigning = () => {
+        dispatch({type: 'CANCEL_ASSIGN'})
+    }
+
     let contextData = {
         current_task: state.current_task,
         dialogOpen: state.dialogOpen,
+        assign: state.assign,
+        assignTo: state.assignTo,
         dispatch,
         getTask,
         cancel,
@@ -128,7 +141,9 @@ export const TaskProvider = ({children}) => {
         deleteTask,
         createTask,
         openDeleteDialog,
-        closeDeleteDialog
+        closeDeleteDialog,
+        startAssigning,
+        cancelAssigning
     }
 
     return(
