@@ -9,7 +9,7 @@ import useFetchTasks from '../../hooks/useFetchTasks'
 import LogoutDialog from '../../components/dialogs/LogoutDialog'
 
 function TaskUrgencyTemplatePage({page_title, tasks_type, user, hasFooter, section_text}) {
-    const {isLoading} = useContext(TasksContext)
+    const {isLoading, showUrgencyKey} = useContext(TasksContext)
     const {logoutDialog} = useContext(AuthContext)
     let {tasks} = useFetchTasks(tasks_type)
 
@@ -21,6 +21,8 @@ function TaskUrgencyTemplatePage({page_title, tasks_type, user, hasFooter, secti
             {isLoading ? <Loader/>: <>
                 <h1 className='tasks-header'>{page_title}</h1>
                 {user && <p className='welcome-text'>{tasks.length > 0 && section_text}</p>}.
+                {hasFooter && <UrgencyKey shown={showUrgencyKey}/>}
+                <br/>
                 {tasks.length > 0 ? 
                 <div className='tasks'>
                   {tasks.map((task) => {
@@ -28,7 +30,6 @@ function TaskUrgencyTemplatePage({page_title, tasks_type, user, hasFooter, secti
                     })}
                 </div> : <h3 style={{color: 'red', marginBottom: '0.5rem'}}>You have no tasks</h3>}
             </>}
-            {hasFooter && <UrgencyKey/>}
           </main>
         </div>
       )

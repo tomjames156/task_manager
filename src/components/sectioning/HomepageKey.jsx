@@ -1,7 +1,11 @@
-import React from 'react'
+import { useContext } from "react"
+import TasksContext from "../../context/TasksContext"
 
-function HomepageKey() {
+function HomepageKey({shown}) {
+  const {setShowHomeKey} = useContext(TasksContext)
+
   return (
+    shown && 
     <div className='key'>
         <div>
           <i className="fa-solid fa-circle-xmark"></i>
@@ -15,8 +19,18 @@ function HomepageKey() {
           <i className='fa-solid fa-user'></i>
           <span>- Self Assigned</span>
         </div>
-    </div>
+        <button onClick={() => setShowHomeKey(false)}>CLOSE</button>
+      </div>
+
   )
+}
+
+HomepageKey.propTypes = {
+  shown: PropTypes.bool
+}
+
+HomepageKey.defaultProps = {
+  shown: false
 }
 
 export default HomepageKey

@@ -66,7 +66,7 @@ function SearchUsers() {
                 </form>
                 {isLoading  ? <Loader/> : users.length > 0 ? users.map((user, index) => <UserItem key={index} user_obj={user} />) : searchMessage }
             </div>
-            <div onClick={() => {mover('/people/followers')}} style={{fontWeight: 'bold', marginTop: '2rem'}}><i className="fa-solid fa-users-viewfinder"></i>Follow requests</div>
+            {users.length < 1 && <div onClick={() => {mover('/people/followers')}} style={{fontWeight: 'bold', marginTop: '2rem'}}><i className="fa-solid fa-users-viewfinder"></i>Follow requests</div>}
         </main>
     </div>
   )

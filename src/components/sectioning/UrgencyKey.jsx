@@ -1,7 +1,11 @@
-import React from 'react'
+import { useContext } from "react"
+import TasksContext from "../../context/TasksContext"
 
-function UrgencyKey() {
+function UrgencyKey({shown}) {
+    const {setShowUrgencyKey} = useContext(TasksContext)
+
   return (
+    shown &&
     <div className='key'>
         <div>
             <span></span>
@@ -23,6 +27,7 @@ function UrgencyKey() {
             <span></span>
             <span>- 3 days or more</span>
         </div>
+        <button onClick={() => {setShowUrgencyKey(false)}}>CLOSE</button>
     </div>
   )
 }

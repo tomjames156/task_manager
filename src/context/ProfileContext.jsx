@@ -16,6 +16,8 @@ export const ProfileProvider = ({children}) => {
         confirmDialog: false,
         profile: {},
         friends: {},
+        following: {},
+        followers: {},
         publicProfile: {},
         searchQuery: ''
     }
@@ -117,22 +119,21 @@ export const ProfileProvider = ({children}) => {
     const getPublicProfile = async (username) => {
         dispatch({type: 'LOADING'})
         try{
-          let response = await fetch(`${api}/public_profile/${username}`, {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Access-Key ${authTokens?.access}`
+            let response = await fetch(`${api}/public_profile/${username}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Access-Key ${authTokens?.access}`
             }
-          })
-          if (response.status === 404){
-            mover('/404')
+            })
+            if (response.status === 404){
+                mover('/404')
             }
-          let data = await response.json()
-          dispatch({
+        let data = await response.json()
+        dispatch({
             type: 'GET_PUBLIC_PROFILE',
             payload: data
-          })
-        //   console.log(data)
+        })
         }catch(err){
           console.log(err)
         }
@@ -193,6 +194,45 @@ export const ProfileProvider = ({children}) => {
         }
     }
 
+    const getFollowing = async () => {
+        try{
+            let response = await fetch(`${api}/following`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Access-Key ${authTokens?.access}`
+                }
+            })
+
+            let data = await response.json()
+            dispatch({
+                type: 'GET_FOLLOWING',
+                payload: data
+            })
+        }catch(err){
+            console.log(err)
+        }
+    }
+
+    const getFollowers = async () => {
+        try{
+            const response = await fetch(`${api}/followers`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Access-Key ${authTokens?.access}`
+                }
+            })
+            const data = await response.json()
+            dispatch({
+                type: 'GET_FOLLOWERS',
+                payload: data
+            })
+        }catch(err){
+            console.log(err)
+        }
+    }
+
     const contextData = {
         api,
         host,
@@ -203,6 +243,8 @@ export const ProfileProvider = ({children}) => {
         publicProfile: state.publicProfile,
         searchQuery: state.searchQuery,
         friends: state.friends,
+        following: state.following,
+        followers: state.followers,
         getProfile,
         updateProfile,
         openDialog,
@@ -218,6 +260,8 @@ export const ProfileProvider = ({children}) => {
         stopLoading,
         startFriendship,
         getFriends,
+        getFollowing,
+        getFollowers
     }
 
     return(

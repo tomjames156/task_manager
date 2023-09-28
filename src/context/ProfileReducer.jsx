@@ -35,6 +35,15 @@ const ProfileReducer = (state, action) =>{
                 ...state, 
                 friends: action.payload
             }
+        case 'GET_FOLLOWING':
+            return {
+                ...state, 
+                following: action.payload}
+        case 'GET_FOLLOWERS':
+            return {
+                ...state,
+                followers: action.payload
+            }
         default:
             return state
     }

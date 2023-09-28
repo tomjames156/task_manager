@@ -501,6 +501,12 @@ button{
   background: #d3d3d3;
 }
 
+.key button{
+  background: none;
+  color: black;
+  font-size: 1rem;
+}
+
 .taskItem{
   position: relative;
   width: 90%;
@@ -1028,9 +1034,21 @@ input[name='completed']:focus{
   transition: all ease 100ms;
 }
 
-.friends button:hover{
-  background: transparent;
-  color: #45b6fe;
+.friends button.friends{
+  border: solid 2px #63ca00;
+  background: #63ca00;
+  color: white;
+  cursor: auto;
+}
+
+.friends button.friends:hover{
+  border: solid 2px #63ca00;
+  background: #63ca00;
+  color: white;
+}
+
+.friends button.followed{
+  cursor: auto;
 }
 
 .profile-info-container.public img{

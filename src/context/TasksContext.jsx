@@ -10,6 +10,8 @@ export const TasksProvider = ({children}) => {
     const {authTokens, setMessage, logoutUser} = useContext(AuthContext)
     const [isLoading, setIsLoading] = useState(true)
     const [newTasks, setNewTasks] = useState([])
+    const [showHomeKey, setShowHomeKey] = useState(true)
+    const [showUrgencyKey, setShowUrgencyKey] = useState(true)
 
     const {pathname} = useLocation()
 
@@ -59,6 +61,10 @@ export const TasksProvider = ({children}) => {
     const contextData = {
         newTasks,
         isLoading,
+        showHomeKey,
+        showUrgencyKey,
+        setShowHomeKey,
+        setShowUrgencyKey,
         setIsLoading,
         pathMatch
     }
