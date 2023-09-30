@@ -15,6 +15,16 @@ const TaskReducer = (state, action) => {
             return {...state, assign: true}
         case 'CANCEL_ASSIGN':
             return {...state, assign: false}
+        case 'ADD_ASSIGNEE':
+            return {
+                ...state, 
+                assignTo: [...state.assignTo, action.payload]
+            }
+        case 'CLEAR_ASSIGNEES':
+            return {
+                ...state,
+                assignTo: []
+            }
         default:
             return state
     }

@@ -16,9 +16,9 @@ function FollowingPage() {
     <div className="container">
         <Header/>
         <main id="friends-followers">
-            <h1>Friends</h1>
+            <h1>Following</h1>
             <p>These are people that you follow. Click <Link to="/people/friends">here</Link> to see who follows you</p>
-            {following && following.length > 1 && following.map((friend, index) => <UserItem key={index} user_obj={friend} />)}
+            {following && following.length > 0 && following.map((friend, index) => <UserItem key={index} user_obj={friend} />)}
         </main>
     </div>
   )

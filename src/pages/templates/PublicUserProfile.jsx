@@ -1,6 +1,7 @@
 import dayjs from 'dayjs'
 import Header from '../../components/sectioning/Header'
 import Loader from '../../components/items/Loader'
+import loading from '../../assets/loading.svg'
 import ProfileContext from '../../context/ProfileContext'
 import { useContext, useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
@@ -11,6 +12,7 @@ function PublicUserProfile() {
   const { host, profile, publicProfile, getPublicProfile, isLoading, startFriendship } = useContext(ProfileContext)
   const { username } = useParams()
   const [btnTitle, setBtnTitle] = useState('Copy Email')
+  const [initiating, setInitiating] = useState(false)
   var localizedFormat = require('dayjs/plugin/localizedFormat')
   dayjs.extend(localizedFormat)
   const mover = useNavigate()
@@ -20,11 +22,15 @@ function PublicUserProfile() {
     return dayjs(date).format('LL')
   }
 
-  // if user does not exist then just display user does not exist or move to 404 page
-
   const copyEmail = () => {
     navigator.clipboard.writeText(publicProfile.email)
     setBtnTitle('Copied')
+  }
+
+  const follow = () => {
+    setInitiating(true)
+    startFriendship(publicProfile.username)
+    setInitiating(false)
   }
 
   useEffect(() => {
@@ -50,11 +56,18 @@ function PublicUserProfile() {
               <p className="email_address">{publicProfile.email}<a href={`mailto:${publicProfile.email}`} title="Send Email"><i className="fa-regular fa-envelope fa-xs"></i></a><span title={btnTitle} onClick={copyEmail} className="copy_address"><i className="fa-regular fa-clipboard fa-xs"></i></span></p>
             </div>
             {profile?.username !== publicProfile.username &&
-              <div className="friends">              
-              {!publicProfile?.is_followed ? <button title="Follow" onClick={() => startFriendship(publicProfile.username)}>Follow</button> : publicProfile?.friends ? <button className='friends' title="Friends">Friends</button> : <button className='followed' title="Followed">Followed</button> }
-              {/* todo add animation when follow initiated */}
-              </div>
-            }
+            <div className="friends">
+              {initiating ? 
+              <button className='btn-loading'>
+                <img src={loading} alt="loading" />
+              </button> : 
+              publicProfile?.is_followed ?                 
+              publicProfile?.friends ? 
+              <button className='friends' title="Friends">Friends</button> : 
+              <button className='followed' title="Followed">Followed</button>:
+              <button title="Follow" onClick={follow}>Follow</button>
+              }
+            </div>}
         </div>              
         <p className="bio">{publicProfile.bio}</p>
         <div className="location-joined">

@@ -10,12 +10,13 @@ import ProfileContext from '../../context/ProfileContext'
 import UserItemAssign from './UserItemAssign'
 
 function TaskItem({task_obj}) {
+  const host = process.env.REACT_APP_BASE_URL
   const colours = ['#34ccff', '#e4f78f', '#ffc983', '#ffa0a1', '#b99aff']
-  const [assignTo, setAssignTo] = useState([])
+  const [assignSelf, setAssignSelf] = useState(true)
   const {logoutDialog, setLogoutDialog} = useContext(AuthContext)
   const fileInput = document.querySelector('input[type="file"]')
   const {isLoading, setIsLoading} = useContext(TasksContext)
-  const {openDeleteDialog, dialogOpen, updateTask, createTask, cancel, closeDeleteDialog, assign, startAssigning, cancelAssigning} = useContext(TaskContext)
+  const {openDeleteDialog, dialogOpen, updateTask, createTask, cancel, closeDeleteDialog, assign, startAssigning, cancelAssigning, addAssignee} = useContext(TaskContext)
   const [inputs, setInputs] = useState({
     header: '',
     description: '',
@@ -23,10 +24,11 @@ function TaskItem({task_obj}) {
     completed: false,
     task_colour: '#34ccff'
   })
-  const {friends, getFriends} = useContext(ProfileContext)
+  const {friends, getFriends, profile, getProfile} = useContext(ProfileContext)
 
   useEffect(() => {
     closeDeleteDialog()
+    getProfile()
     getFriends()
     if(task_obj !== null){
       setInputs({
@@ -55,9 +57,14 @@ function TaskItem({task_obj}) {
     setInputs({...inputs, completed: e.target.checked})
   }
 
-  const assignToUser = (username) => {
-    // setAssignTo(prevState => prevState.push(username))
-    // console.log(assignTo)
+  const assignToSelf = () => {
+    setAssignSelf(prevState => !prevState)
+    if(!assignSelf){
+      console.log('Yeahhh')
+      addAssignee('tom1')
+    }else{
+        console.log('Nahh')
+    }
   }
 
   if(isLoading){
@@ -84,10 +91,22 @@ function TaskItem({task_obj}) {
                 <i className="fa-solid fa-users fa-lg" title='Assign to Friends'></i>
               </div>
               <div className='assigned_friends'>
-                <p onClick={startAssigning}>Assigned Friends</p>
+                {task_obj === null && <p onClick={startAssigning}>Assigned To:</p>}
                 {assign && <>
                 <div className='assignTask'>
-                  <p>Assign To:</p>{friends.length > 1 && friends.map((friend, index) => <UserItemAssign onClick={() => console.log('grah')} key={index} user_obj={friend}/>)}
+                  <p>Assign To:</p>{friends.length > 1 && friends.map((friend, index) => <UserItemAssign key={index} user_obj={friend}/>)}
+                  <div className="user-item assign" onClick={assignToSelf}>
+                    <div title={`Assign to ${profile.username}`}>
+                      <img src={`${host}/${profile.profile_pic}`} alt={`${profile.username}'s profile picture`} />
+                      <div>
+                          <div>
+                              <p className="fullname">{profile.lastname} {profile.firstname}</p>
+                              <p className="username">{profile.username}</p>
+                          </div>
+                      </div>
+                    </div>
+                    {assignSelf ? <i className="fa-solid fa-check"></i> : <i className='fa-solid fa-plus' />}
+                  </div>
                   <div className='buttons'>
                     <div className='close' onClick={cancelAssigning}>Close</div>
                     <div className='assign' onClick={cancelAssigning}>Assign</div>

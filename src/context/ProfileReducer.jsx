@@ -44,6 +44,10 @@ const ProfileReducer = (state, action) =>{
                 ...state,
                 followers: action.payload
             }
+        case 'INITIATE_FOLLOW':
+            return {...state, initiating: true}
+        case 'FOLLOW_COMPLETE':
+            return {...state, initiating: false}
         default:
             return state
     }

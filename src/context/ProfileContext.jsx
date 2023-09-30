@@ -19,6 +19,7 @@ export const ProfileProvider = ({children}) => {
         following: {},
         followers: {},
         publicProfile: {},
+        initating: false,
         searchQuery: ''
     }
 
@@ -39,6 +40,7 @@ export const ProfileProvider = ({children}) => {
                 type: 'GET_PROFILE',
                 payload: data
             })
+            console.log(data)
         }catch(err){
             console.log(err)
         }
@@ -159,7 +161,16 @@ export const ProfileProvider = ({children}) => {
         dispatch({type: 'STOP_LOADING'})
     }
 
+    const initiateFollow = () => {
+        dispatch({type: 'INITIATE_FOLLOW'})
+    }
+
+    const completeFollow = () => {
+        dispatch({type: 'FOLLOW_COMPLETE'})
+    }
+
     const startFriendship = async (friend_name) => {
+        initiateFollow()
         try{
             await fetch(`${api}/friends/`, {
                 method: 'PUT',
@@ -172,6 +183,7 @@ export const ProfileProvider = ({children}) => {
         }catch(err){
             console.log(err)
         }
+        completeFollow()
     }
 
     const getFriends = async () => {
@@ -189,6 +201,7 @@ export const ProfileProvider = ({children}) => {
                 type: 'GET_FRIENDS',
                 payload: data
             })
+            console.log(data)
         }catch(err){
             console.log(err)
         }
@@ -245,6 +258,7 @@ export const ProfileProvider = ({children}) => {
         friends: state.friends,
         following: state.following,
         followers: state.followers,
+        initiating: state.initating,
         getProfile,
         updateProfile,
         openDialog,

@@ -9,6 +9,7 @@ function FriendsPage() {
 
     useEffect(() => {
         getFriends()
+        console.log(friends)
     }, [])
 
   return (
@@ -17,7 +18,7 @@ function FriendsPage() {
         <main id="friends-followers">
             <h1>Friends</h1>
             <p>These are people that follow you back. Click <Link to="/people/following">here</Link> to see who you're following</p>
-            {friends && friends.length > 1 && friends.map((friend, index) => <UserItem key={index} user_obj={friend} />)}
+            {friends && friends.length > 0 && friends.map((friend, index) => <UserItem key={index} user_obj={friend} />)}
         </main>
     </div>
   )

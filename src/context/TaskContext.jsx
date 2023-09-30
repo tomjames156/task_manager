@@ -122,11 +122,26 @@ export const TaskProvider = ({children}) => {
 
     const startAssigning = () => {
         dispatch({type: 'START_ASSIGN'})
-        console.log('grah')
     }
 
     const cancelAssigning = () => {
         dispatch({type: 'CANCEL_ASSIGN'})
+    }
+
+    const addAssignee = (username) => {
+        console.log(`Send to ${username}`)
+        dispatch({
+            type: 'ADD_ASSIGNEE',
+            payload: username
+        })
+    }
+
+    const clearAssignees = (username) => {
+        console.log(`Send to ${username}`)
+        dispatch({
+            type: 'CLEAR_ASSIGNEES',
+            payload: username
+        })
     }
 
     let contextData = {
@@ -143,7 +158,9 @@ export const TaskProvider = ({children}) => {
         openDeleteDialog,
         closeDeleteDialog,
         startAssigning,
-        cancelAssigning
+        cancelAssigning,
+        addAssignee,
+        clearAssignees
     }
 
     return(
