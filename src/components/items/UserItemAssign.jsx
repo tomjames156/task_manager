@@ -20,7 +20,7 @@ function UserItemAssign({user_obj, checked}) {
     return (
         <div className="user-item assign" onClick={assign}>
             <div title={`Assign to ${user_obj.username}`}>
-                <img src={`${host}/${user_obj.profile_pic}`} alt={`${user_obj.username}'s profile picture`} />
+                <img src={`${host}/${user_obj.profile_pic}`} alt={`${user_obj.username}'s profile`} />
                 <div>
                     <div>
                         <p className="fullname">{user_obj.lastname} {user_obj.firstname}</p>

@@ -97,7 +97,7 @@ function TaskItem({task_obj}) {
                   <p>Assign To:</p>{friends.length > 1 && friends.map((friend, index) => <UserItemAssign key={index} user_obj={friend}/>)}
                   <div className="user-item assign" onClick={assignToSelf}>
                     <div title={`Assign to ${profile.username}`}>
-                      <img src={`${host}/${profile.profile_pic}`} alt={`${profile.username}'s profile picture`} />
+                      <img src={`${host}/${profile.profile_pic}`} alt={`${profile.username}'s profile`} />
                       <div>
                           <div>
                               <p className="fullname">{profile.lastname} {profile.firstname}</p>
